@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+}
+
+input.searchInput {
+  min-width: 301px;
+  opacity: 0.8;
+  border-radius: 4px;
+  background-color: var(--blackish);
+  color: var(--white);
+  letter-spacing: 0;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  border: none;
+  margin: 6px;
+  padding: 6px;
+}
+
