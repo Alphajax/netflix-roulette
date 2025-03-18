@@ -5,7 +5,7 @@ import styles from "./button.module.scss";
 type ButtonType = "primary";
 
 type Props = PropsWithChildren<{
-    onClick?: () => void;
+    onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
     type?: ButtonType;
 }>
 
