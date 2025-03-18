@@ -1,0 +1,25 @@
+.primary {
+  background-color: $red-accent;
+  color: $white;
+}
+
+.button {
+  font-weight: 500;
+  font-family: Montserrat, serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 100%;
+  border-radius: 0;
+}
+
+.primary {
+  color: var(--white);
+  background-color: var(--red-accent);
+}
+
+.cancel {
+  color: var(--red-accent);
+  background-color: var(--blackish);
+  border: 1px solid var(--red-accent);
+}
