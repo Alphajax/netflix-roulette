@@ -24,9 +24,8 @@ export const Search = ({ initialSearch, onSearch }: Props) => {
     };
 
     const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        e.preventDefault();
-
         if (e.key === KEY_CODE.ENTER) {
+            e.preventDefault();
             onSearch(search);
         }
     };
@@ -36,7 +35,6 @@ export const Search = ({ initialSearch, onSearch }: Props) => {
             <input
                 onKeyDown={handleKeyPress}
                 type="text"
-                defaultValue={initialSearch}
                 onChange={handleInputChange}
                 className={clsx(styles.searchInput)}
                 value={search}
