@@ -1,11 +1,11 @@
-import type { PropsWithChildren } from 'react'
+import type { MouseEventHandler, PropsWithChildren } from 'react'
 import clsx from 'clsx'
 import styles from './button.module.scss'
 
 type ButtonType = 'primary'
 
 type Props = PropsWithChildren<{
-  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  onClick?: MouseEventHandler<HTMLButtonElement>
   type?: ButtonType
 }>
 
