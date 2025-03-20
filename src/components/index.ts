@@ -1,2 +1,2 @@
-export * from "./counter"
-export * from "./genre-select";
+export * from './counter'
+export * from './genre-select'

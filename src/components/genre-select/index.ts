@@ -1,1 +1,1 @@
-export * from './genre-select';
+export * from './genre-select'

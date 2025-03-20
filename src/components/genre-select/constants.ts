@@ -1,8 +1,3 @@
-import { SelectOptions } from "../../ui";
+import { SelectOptions } from '../../ui'
 
-export const genreSelectOptions: SelectOptions = [
-    "Crime",
-    "Documentary",
-    "Horror",
-    "Comedy",
-];
+export const genreSelectOptions: SelectOptions = ['Crime', 'Documentary', 'Horror', 'Comedy']
