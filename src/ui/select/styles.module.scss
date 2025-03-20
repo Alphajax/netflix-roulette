@@ -19,9 +19,10 @@
   background-color: var(--blackish);
   color: var(--white);
   opacity: 0.8;
+  font-size: 20px;
+  font-weight: 400;
 }
-
-.focusedSelect {
+.select:focus{
   outline: 2px solid var(--red-accent);
 }
 
