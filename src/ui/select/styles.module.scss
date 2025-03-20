@@ -20,8 +20,7 @@
   color: var(--white);
   opacity: 0.8;
 }
-
-.focusedSelect {
+.select:focus{
   outline: 2px solid var(--red-accent);
 }
 

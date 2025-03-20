@@ -12,17 +12,15 @@ interface Props {
   options: SelectOptions
   name: string
   onSelect: (name: string) => void
-  selectedOptions: string[]
+  initialSelectedOptions: string[]
   multiSelect: boolean
 }
 
-export const Select = ({ options, name, multiSelect, selectedOptions, onSelect }: Props) => {
+export const Select = ({ options, name, multiSelect, initialSelectedOptions, onSelect }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
 
-  const [selected, setSelected] = useState<SelectOption[]>([...selectedOptions])
+  const [selected, setSelected] = useState<SelectOption[]>([...initialSelectedOptions])
 
-  const [focusedIndex, setFocusedIndex] = useState<number | null>(null)
-  const [isSelectFocused, setIsSelectFocused] = useState(false)
   const selectRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -57,22 +55,6 @@ export const Select = ({ options, name, multiSelect, selectedOptions, onSelect }
   const isSelected = (option: SelectOption) =>
     selected.some((selectedOption) => selectedOption === option)
 
-  const handleFocusOption = (index: number) => {
-    setFocusedIndex(index)
-  }
-
-  const handleBlurOption = () => {
-    setFocusedIndex(null)
-  }
-
-  const handleSelectFocus = () => {
-    setIsSelectFocused(true)
-  }
-
-  const handleSelectBlur = () => {
-    setIsSelectFocused(false)
-  }
-
   return (
     <div className={styles.container} ref={selectRef}>
       <select aria-label={name} className={styles.nativeSelect} id={name} name={name}>
@@ -86,11 +68,7 @@ export const Select = ({ options, name, multiSelect, selectedOptions, onSelect }
       <button
         aria-expanded={isOpen}
         aria-hidden="true"
-        className={clsx(styles.select, {
-          [styles.focusedSelect]: isSelectFocused,
-        })}
-        onBlur={handleSelectBlur}
-        onFocus={handleSelectFocus}
+        className={styles.select}
         onClick={() => {
           setIsOpen(!isOpen)
         }}
@@ -105,18 +83,12 @@ export const Select = ({ options, name, multiSelect, selectedOptions, onSelect }
 
       {isOpen && (
         <div aria-hidden="true" className={styles.dropdown}>
-          {options.map((option, index) => (
+          {options.map((option) => (
             <button
+              className={styles.option}
               key={option}
-              className={clsx(styles.option, {
-                [styles.focusedOption]: focusedIndex === index,
-              })}
-              onBlur={handleBlurOption}
               onClick={() => {
                 toggleSelection(option)
-              }}
-              onFocus={() => {
-                handleFocusOption(index)
               }}
             >
               <input

@@ -8,10 +8,10 @@ export interface GenreSelectProps {
 }
 export const GenreSelect = ({ options, onSelect, selected }: GenreSelectProps) => (
   <Select
+    initialSelectedOptions={[selected]}
     multiSelect={false}
     name="Select Genre"
     options={options}
-    selectedOptions={[selected]}
     onSelect={onSelect}
   />
 )
