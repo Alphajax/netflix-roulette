@@ -2,11 +2,12 @@ import { useCallback, useState } from 'react'
 
 import { Counter, GenreSelect } from './components'
 import { Search } from './ui'
-
 import { genreSelectOptions } from './components/genre-select/constants.ts'
 
+type SelectedGenre = (typeof genreSelectOptions)[number]
+
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<string>(genreSelectOptions[0])
+  const [selectedGenre, setSelectedGenre] = useState<SelectedGenre>(genreSelectOptions[0])
 
   const handleSearch = useCallback((search: string) => {
     alert('search by value:' + search)
