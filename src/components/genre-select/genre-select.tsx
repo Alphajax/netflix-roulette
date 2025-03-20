@@ -1,12 +1,12 @@
 import type { SelectOptions } from '../../ui'
 import { Select } from '../../ui'
 
-interface Props {
+export interface GenreSelectProps {
   options: SelectOptions
   selected: string
   onSelect: (name: string) => void
 }
-export const GenreSelect = ({ options, onSelect, selected }: Props) => (
+export const GenreSelect = ({ options, onSelect, selected }: GenreSelectProps) => (
   <Select
     multiSelect={false}
     name="Select Genre"

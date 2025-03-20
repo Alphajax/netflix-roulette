@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
 import clsx from 'clsx'
 import styles from './button.module.scss'
 
@@ -9,7 +9,7 @@ type Props = PropsWithChildren<{
   type?: ButtonType
 }>
 
-export const Button: FC<Props> = ({ onClick, children, type = 'primary' }) => (
+export const Button = ({ onClick, children, type = 'primary' }: Props) => (
   <button className={clsx(styles.button, styles[type])} onClick={onClick}>
     {children}
   </button>
