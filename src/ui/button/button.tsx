@@ -2,15 +2,16 @@ import type { MouseEventHandler, PropsWithChildren } from 'react'
 import clsx from 'clsx'
 import styles from './button.module.scss'
 
-type ButtonType = 'primary'
+type ButtonVariant = 'primary'
 
 type Props = PropsWithChildren<{
   onClick?: MouseEventHandler<HTMLButtonElement>
-  type?: ButtonType
+  variant?: ButtonVariant
+  type?: HTMLButtonElement['type']
 }>
 
-export const Button = ({ onClick, children, type = 'primary' }: Props) => (
-  <button className={clsx(styles.button, styles[type])} onClick={onClick}>
+export const Button = ({ onClick, children, variant = 'primary', type = 'button' }: Props) => (
+  <button className={clsx(styles.button, styles[variant])} type={type} onClick={onClick}>
     {children}
   </button>
 )

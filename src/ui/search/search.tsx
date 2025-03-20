@@ -1,9 +1,8 @@
-import type { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
-import { useState } from 'react'
+import type { FormEventHandler } from 'react'
+import { useRef } from 'react'
 
 import styles from './search.module.scss'
 import { Button } from '../button'
-import { KEY_CODE } from '../../constants'
 
 interface Props {
   initialSearch: string
@@ -11,34 +10,24 @@ interface Props {
 }
 
 export const Search = ({ initialSearch, onSearch }: Props) => {
-  const [search, setSearch] = useState(initialSearch)
+  const input = useRef<HTMLInputElement>(null)
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value)
-  }
-
-  const handleSearchClick = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleSubmitForm: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    onSearch(search)
-  }
-
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === KEY_CODE.ENTER) {
-      e.preventDefault()
-      onSearch(search)
-    }
+    onSearch(input.current?.value ?? '')
   }
 
   return (
     <div className={styles.container}>
-      <input
-        className={styles.searchInput}
-        type="text"
-        value={search}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyPress}
-      />
-      <Button onClick={handleSearchClick}>Search</Button>
+      <form onSubmit={handleSubmitForm}>
+        <input
+          className={styles.searchInput}
+          defaultValue={initialSearch}
+          ref={input}
+          type="text"
+        />
+        <Button type="submit">Search</Button>
+      </form>
     </div>
   )
 }

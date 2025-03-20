@@ -1,5 +1,10 @@
 .container {
   display: flex;
+  margin: 12px 0;
+  form {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .searchInput {
@@ -14,6 +19,4 @@
   font-size: 20px;
   line-height: 100%;
   border: none;
-  margin: 6px;
-  padding: 6px;
 }
