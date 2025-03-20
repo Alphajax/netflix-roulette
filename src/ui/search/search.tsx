@@ -1,12 +1,12 @@
 import clsx from 'clsx'
-import { ChangeEvent, KeyboardEvent, MouseEvent, useState } from 'react'
-
-import { KEY_CODE } from '../../constants'
-import { Button } from '../button'
+import type { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
+import { useState } from 'react'
 
 import styles from './search.module.scss'
+import { Button } from '../button'
+import { KEY_CODE } from '../../constants'
 
-type Props = {
+interface Props {
   initialSearch: string
   onSearch: (search: string) => void
 }
@@ -33,11 +33,11 @@ export const Search = ({ initialSearch, onSearch }: Props) => {
   return (
     <div className={styles.container}>
       <input
-        onKeyDown={handleKeyPress}
-        type="text"
-        onChange={handleInputChange}
         className={clsx(styles.searchInput)}
+        type="text"
         value={search}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyPress}
       />
       <Button onClick={handleSearchClick}>Search</Button>
     </div>

@@ -21,11 +21,11 @@ function App() {
   return (
     <>
       <Counter initialValue={7} />
-      <Search initialSearch={'netflix'} onSearch={handleSearch} />
+      <Search initialSearch="netflix" onSearch={handleSearch} />
       <GenreSelect
         options={genreSelectOptions}
-        onSelect={handleSelectChange}
         selected={selectedGenre}
+        onSelect={handleSelectChange}
       />
     </>
   )

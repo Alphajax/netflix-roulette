@@ -3,8 +3,12 @@ import { Component, createElement } from 'react'
 
 import styles from './counter.module.scss'
 
-type Props = { initialValue: number }
-type State = { value: number }
+interface Props {
+  initialValue: number
+}
+interface State {
+  value: number
+}
 
 export class Counter extends Component<Props, State> {
   constructor(props: Props) {

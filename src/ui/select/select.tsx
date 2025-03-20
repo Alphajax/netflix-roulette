@@ -6,9 +6,9 @@ import SelectIcon from '../../assets/select-icon.svg'
 import styles from './styles.module.scss'
 
 export type SelectOption = string
-export type SelectOptions = Array<SelectOption>
+export type SelectOptions = SelectOption[]
 
-type Props = {
+interface Props {
   options: SelectOptions
   name: string
   onSelect: (name: string) => void
@@ -54,9 +54,8 @@ export const Select = ({ options, name, multiSelect, selectedOptions, onSelect }
     }
   }
 
-  const isSelected = (option: SelectOption) => {
-    return selected.some((selectedOption) => selectedOption === option)
-  }
+  const isSelected = (option: SelectOption) =>
+    selected.some((selectedOption) => selectedOption === option)
 
   const handleFocusOption = (index: number) => {
     setFocusedIndex(index)
@@ -76,7 +75,7 @@ export const Select = ({ options, name, multiSelect, selectedOptions, onSelect }
 
   return (
     <div className={styles.container} ref={selectRef}>
-      <select name={name} id={name} className={styles.nativeSelect} aria-label={name}>
+      <select aria-label={name} className={styles.nativeSelect} id={name} name={name}>
         {options.map((option) => (
           <option key={option} value={option}>
             {option}
@@ -85,41 +84,49 @@ export const Select = ({ options, name, multiSelect, selectedOptions, onSelect }
       </select>
 
       <button
+        aria-expanded={isOpen}
+        aria-hidden="true"
         className={clsx(styles.select, {
           [styles.focusedSelect]: isSelectFocused,
         })}
-        onClick={() => setIsOpen(!isOpen)}
-        aria-hidden="true"
-        aria-expanded={isOpen}
-        onFocus={handleSelectFocus}
         onBlur={handleSelectBlur}
+        onFocus={handleSelectFocus}
+        onClick={() => {
+          setIsOpen(!isOpen)
+        }}
       >
         {name}
         <img
-          alt={'arrow-icon'}
-          src={SelectIcon}
+          alt="arrow-icon"
           className={clsx(styles.icon, { [styles.closedIcon]: !isOpen })}
+          src={SelectIcon}
         />
       </button>
 
       {isOpen && (
-        <div className={styles.dropdown} aria-hidden="true">
+        <div aria-hidden="true" className={styles.dropdown}>
           {options.map((option, index) => (
             <button
               key={option}
               className={clsx(styles.option, {
                 [styles.focusedOption]: focusedIndex === index,
               })}
-              onClick={() => toggleSelection(option)}
-              onFocus={() => handleFocusOption(index)}
               onBlur={handleBlurOption}
+              onClick={() => {
+                toggleSelection(option)
+              }}
+              onFocus={() => {
+                handleFocusOption(index)
+              }}
             >
               <input
-                type="checkbox"
-                checked={isSelected(option)}
-                onChange={() => toggleSelection(option)}
-                className={styles.checkbox}
                 aria-hidden="true"
+                checked={isSelected(option)}
+                className={styles.checkbox}
+                type="checkbox"
+                onChange={() => {
+                  toggleSelection(option)
+                }}
               />
               {option}
             </button>
