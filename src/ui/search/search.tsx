@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import type { ChangeEvent, KeyboardEvent, MouseEvent } from 'react'
 import { useState } from 'react'
 
@@ -33,7 +32,7 @@ export const Search = ({ initialSearch, onSearch }: Props) => {
   return (
     <div className={styles.container}>
       <input
-        className={clsx(styles.searchInput)}
+        className={styles.searchInput}
         type="text"
         value={search}
         onChange={handleInputChange}
