@@ -3,7 +3,6 @@ import { useCallback, useState } from 'react'
 import { Counter, GenreSelect } from './components'
 import { Search } from './ui'
 
-import './App.css'
 import { genreSelectOptions } from './components/genre-select/constants.ts'
 
 function App() {
