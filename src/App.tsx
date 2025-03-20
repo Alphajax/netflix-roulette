@@ -8,7 +8,7 @@ import { genreSelectOptions } from './components/genre-select/constants.ts'
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<string>(genreSelectOptions[0])
 
-  const onSearch = useCallback((search: string) => {
+  const handleSearch = useCallback((search: string) => {
     alert('search by value:' + search)
   }, [])
 
@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <Counter initialValue={7} />
-      <Search initialSearch={'netflix'} onSearch={onSearch} />
+      <Search initialSearch={'netflix'} onSearch={handleSearch} />
       <GenreSelect
         options={genreSelectOptions}
         onSelect={handleSelectChange}
