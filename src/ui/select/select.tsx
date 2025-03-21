@@ -41,7 +41,7 @@ export const Select = ({ options, name, multiSelect, initialSelectedOptions, onS
     onSelect(option)
     if (multiSelect) {
       setSelected((prevSelected) => {
-        if (prevSelected.some((selectedOption) => selectedOption === option)) {
+        if (prevSelected.includes(option)) {
           return prevSelected.filter((selectedOption) => selectedOption !== option)
         } else {
           return [...prevSelected, option]
