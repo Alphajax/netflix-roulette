@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  margin: 12px 0;
+  form {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.searchInput {
+  min-width: 301px;
+  opacity: 0.8;
+  border-radius: 4px;
+  background-color: var(--blackish);
+  color: var(--white);
+  letter-spacing: 0;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 100%;
+  border: none;
+}
