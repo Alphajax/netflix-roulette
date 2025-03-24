@@ -8,4 +8,8 @@ export default defineConfig({
     globals: true, // ✅ Ensure globals like expect, test, and describe are available
     environment: 'jsdom',
   },
+  server: {
+    host: true,
+    port: 3000,
+  },
 })
