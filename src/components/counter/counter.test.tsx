@@ -16,14 +16,14 @@ describe('Counter Component', () => {
     const { getByText } = render(<Counter initialValue={7} />)
     const decrementButton = getByText('Decrement')
     await user.click(decrementButton)
-    const decrementedValue = getByText("6");
-    expect(decrementedValue).toBeInTheDocument();
+    const decrementedValue = getByText('6')
+    expect(decrementedValue).toBeInTheDocument()
   })
-  test('Test that a click event on "increment" button increments the displayed value', async  () => {
+  test('Test that a click event on "increment" button increments the displayed value', async () => {
     const { getByText } = render(<Counter initialValue={7} />)
     const incrementButton = getByText('Increment')
     await user.click(incrementButton)
-    const incrementedValue = getByText("8");
-    expect(incrementedValue).toBeInTheDocument();
+    const incrementedValue = getByText('8')
+    expect(incrementedValue).toBeInTheDocument()
   })
 })
