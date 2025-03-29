@@ -11,6 +11,7 @@ export default defineConfig({
     coverage: {
       reporter: ['text', 'json', 'html'],
       exclude: ['**/index.ts'],
+      provider: 'v8',
     },
   },
   server: {

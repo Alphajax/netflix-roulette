@@ -1,8 +1,3 @@
-.primary {
-  background-color: var(--red-accent);
-  color: var(--white);
-}
-
 .button {
   font-weight: 500;
   font-family: Montserrat, serif;
@@ -12,8 +7,16 @@
   line-height: 100%;
   border-radius: 4px;
   height: 100%;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
-
+.button:focus {
+  outline: 2px solid var(--red-accent);
+  opacity: 1;
+}
 .primary {
   color: var(--white);
   background-color: var(--red-accent);
