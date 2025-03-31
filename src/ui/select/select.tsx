@@ -12,11 +12,17 @@ interface Props {
   options: SelectOptions
   name: string
   onSelect: (name: string) => void
-  initialSelectedOptions: string[]
+  initialSelectedOptions?: string[]
   multiSelect: boolean
 }
 
-export const Select = ({ options, name, multiSelect, initialSelectedOptions, onSelect }: Props) => {
+export const Select = ({
+  options,
+  name,
+  multiSelect,
+  initialSelectedOptions = [],
+  onSelect,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<SelectOption[]>([...initialSelectedOptions])
   const selectRef = useRef<HTMLDivElement>(null)
