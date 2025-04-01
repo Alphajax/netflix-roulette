@@ -1,28 +1,28 @@
-import { describe, expect, test, vi } from 'vitest'
-import { render } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Search } from './search.tsx'
 
 const user = userEvent.setup()
 
 describe('Search', () => {
-  test('Test that component renders an input with the value equal to initial value passed in props', () => {
+  test('renders with initial value', () => {
     const onSearch = vi.fn(() => null)
-    const { getByTestId } = render(<Search initialSearch="netflix" onSearch={onSearch} />)
-    expect(getByTestId('search-input')).toHaveValue('netflix')
+    render(<Search initialSearch="netflix" onSearch={onSearch} />)
+    expect(screen.getByRole('textbox')).toHaveValue('netflix')
   })
-  test('Test that after typing to the input and a "click" event on the Submit button, the "onChange" prop is called with proper value', async () => {
+  test('submit correct search by click', async () => {
     const onSearch = vi.fn(() => null)
-    const { getByTestId } = render(<Search initialSearch="netf" onSearch={onSearch} />)
-    const input = getByTestId('search-input')
+    render(<Search initialSearch="netf" onSearch={onSearch} />)
+    const input = screen.getByRole('textbox')
     await user.type(input, 'lix')
     expect(input).toHaveValue('netflix')
+    await user.click(screen.getByRole('button', { name: 'Search' }))
+    expect(onSearch).toHaveBeenCalledWith('netflix')
   })
-  test('Test that after typing to the input and pressing Enter key, the "onChange" prop is called with proper value', async () => {
+  test('submit correct search by press "Enter"', async () => {
     const onSearch = vi.fn(() => null)
-    const { getByTestId } = render(<Search initialSearch="netf" onSearch={onSearch} />)
-    const input = getByTestId('search-input')
+    render(<Search initialSearch="netf" onSearch={onSearch} />)
+    const input = screen.getByRole('textbox')
     await user.type(input, 'lix')
     await user.keyboard('{enter}')
     expect(onSearch).toHaveBeenCalledWith('netflix')

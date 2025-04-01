@@ -22,7 +22,6 @@ export const Search = ({ initialSearch, onSearch }: Props) => {
       <form onSubmit={handleSubmitForm}>
         <input
           className={styles.searchInput}
-          data-testid="search-input"
           defaultValue={initialSearch}
           ref={input}
           type="text"

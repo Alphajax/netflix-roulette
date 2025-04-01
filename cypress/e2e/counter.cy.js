@@ -1,23 +1,23 @@
-describe('Counter Component', () => {
+describe('Counter', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000')
   })
 
-  it('Test that component renders initial value provided in props', () => {
+  test('renders initial value', () => {
     cy.get('h1').should('have.text', '7')
   })
 
-  it('Test that a click event on "increment" button increments the displayed value', () => {
+  test('increments the displayed value on "Increment" click', () => {
     cy.contains('button', 'Increment').click()
     cy.get('h1').should('have.text', '8')
   })
 
-  it('Test that a click event on "decrement" button decrements the displayed value', () => {
+  test('decrements the displayed value on "Decrement" click', () => {
     cy.contains('button', 'Decrement').click()
     cy.get('h1').should('have.text', '6')
   })
 
-  it('handles multiple increments and decrements correctly', () => {
+  test('handles multiple increments and decrements correctly', () => {
     cy.contains('button', 'Increment').click().click()
     cy.get('h1').should('have.text', '9')
     cy.contains('button', 'Decrement').click()
