@@ -10,21 +10,16 @@ export type SelectOptions = SelectOption[]
 
 interface Props {
   options: SelectOptions
-  name?: string
+  name: string
   onSelect: (name: string) => void
-  initialSelectedOptions?: string[]
+  initialSelectedOptions: string[]
   multiSelect: boolean
+  placeholder?: string
 }
 
-export const Select = ({
-  options,
-  name,
-  multiSelect,
-  initialSelectedOptions = [],
-  onSelect,
-}: Props) => {
+export const Select = ({ options, name, multiSelect, initialSelectedOptions, onSelect, placeholder }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState<SelectOption[]>(initialSelectedOptions)
+  const [selected, setSelected] = useState<SelectOption[]>([...initialSelectedOptions])
   const selectRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -58,9 +53,8 @@ export const Select = ({
 
   const isSelected = (option: SelectOption) => selected.includes(option)
 
-  const placeholder = multiSelect ? name : selected[0]
   return (
-    <div className={styles.container} id={name} ref={selectRef}>
+    <div className={styles.container} ref={selectRef}>
       <select
         aria-label={name}
         className={styles.nativeSelect}
@@ -88,7 +82,7 @@ export const Select = ({
           setIsOpen(!isOpen)
         }}
       >
-        {placeholder}
+        {placeholder ?? name}
         <img
           alt="arrow-icon"
           className={clsx(styles.icon, { [styles.closedIcon]: !isOpen })}
