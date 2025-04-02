@@ -5,36 +5,33 @@ import { GenreSelect } from './genre-select.tsx'
 describe('GenreSelect', () => {
   const options = ['Action', 'Comedy', 'Drama']
   const initialSelectedOptions = 'Comedy'
-  test('Test that component renders all genres passed in props', () => {
+  test('renders options', () => {
     render(<GenreSelect options={options} selected={initialSelectedOptions} onSelect={vi.fn()} />)
     options.forEach((option) => {
-      const renderedOption = screen.getByText(option)
+      const renderedOption = screen.getByRole('option', { name: option })
       expect(renderedOption).toBeInTheDocument()
     })
   })
 
-  test('Test that component highlights a selected genre passed in props', async () => {
+  test('selected genre is highlighted', async () => {
     const user = userEvent.setup()
+
     render(<GenreSelect options={options} selected={initialSelectedOptions} onSelect={vi.fn()} />)
 
-    const select = screen.getByText('Select Genre')
-    await user.click(select)
+    await user.click(screen.getByText('Select Genre'))
 
-    const comedyCheckbox = screen.getByTestId('select-option-Comedy')
-    expect(comedyCheckbox).toBeChecked()
+    expect(screen.getByTestId('select-option-Comedy')).toBeChecked()
   })
 
-  test('Test that after a click event on a genre button component calls "onChange" callback and passes correct genre in arguments', async () => {
+  test('"onChange" callback is called after item selected', async () => {
     const user = userEvent.setup()
 
     const onSelect = vi.fn()
     render(<GenreSelect options={options} selected={initialSelectedOptions} onSelect={onSelect} />)
 
-    const select = screen.getByText('Select Genre')
-    await user.click(select)
+    await user.click(screen.getByText('Select Genre'))
 
-    const dramaOption = screen.getByTestId(`select-option-${options[2]}`)
-    await user.click(dramaOption)
+    await user.click(screen.getByTestId(`select-option-${options[2]}`))
 
     expect(onSelect).toHaveBeenCalledWith(options[2])
   })

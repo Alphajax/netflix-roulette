@@ -76,6 +76,7 @@ export const Select = ({ options, name, multiSelect, initialSelectedOptions, onS
         aria-expanded={isOpen}
         aria-hidden="true"
         className={styles.select}
+        data-testid={`select-option-${name}`}
         onClick={() => {
           setIsOpen(!isOpen)
         }}
