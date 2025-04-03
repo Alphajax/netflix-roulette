@@ -2,7 +2,7 @@ import type { MouseEventHandler, PropsWithChildren } from 'react'
 import clsx from 'clsx'
 import styles from './button.module.scss'
 
-type ButtonVariant = 'primary'
+type ButtonVariant = 'primary' | 'cancel'
 
 type Props = PropsWithChildren<{
   onClick?: MouseEventHandler<HTMLButtonElement>

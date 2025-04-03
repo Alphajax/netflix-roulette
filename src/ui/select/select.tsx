@@ -14,9 +14,10 @@ interface Props {
   onSelect: (name: string) => void
   initialSelectedOptions: string[]
   multiSelect: boolean
+  placeholder?: string
 }
 
-export const Select = ({ options, name, multiSelect, initialSelectedOptions, onSelect }: Props) => {
+export const Select = ({ options, name, multiSelect, initialSelectedOptions, onSelect, placeholder }: Props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<SelectOption[]>([...initialSelectedOptions])
   const selectRef = useRef<HTMLDivElement>(null)
@@ -81,7 +82,7 @@ export const Select = ({ options, name, multiSelect, initialSelectedOptions, onS
           setIsOpen(!isOpen)
         }}
       >
-        {name}
+        {placeholder ?? name}
         <img
           alt="arrow-icon"
           className={clsx(styles.icon, { [styles.closedIcon]: !isOpen })}
