@@ -8,7 +8,7 @@ import styles from './styles.module.scss'
 export type SelectOption = string
 export type SelectOptions = SelectOption[]
 
-interface Props {
+interface SelectProps {
   options: SelectOptions
   name: string
   onSelect: (name: string) => void
@@ -17,7 +17,14 @@ interface Props {
   placeholder?: string
 }
 
-export const Select = ({ options, name, multiSelect, initialSelectedOptions, onSelect, placeholder }: Props) => {
+export const Select = ({
+  options,
+  name,
+  multiSelect,
+  initialSelectedOptions,
+  onSelect,
+  placeholder,
+}: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<SelectOption[]>([...initialSelectedOptions])
   const selectRef = useRef<HTMLDivElement>(null)

@@ -2,11 +2,11 @@ import { Select } from '../../ui'
 
 import styles from './styles.module.scss'
 
-interface Props {
+interface SortControlProps {
   value: string
   onChange: (value: string) => void
 }
-export const SortControl = ({ value, onChange }: Props) => (
+export const SortControl = ({ value, onChange }: SortControlProps) => (
   <div className={styles.container}>
     <label className={styles.label} htmlFor="Sort By">
       Sort By

@@ -1,7 +1,5 @@
-import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { MovieTitle } from './movie-title.tsx'
-import { describe, expect, it, vi } from 'vitest'
 import userEvent from '@testing-library/user-event'
 
 const mockProps = {
@@ -12,10 +10,8 @@ const mockProps = {
   onClick: vi.fn(),
 }
 
-const user = userEvent.setup()
-
-describe('MovieTitle Component', () => {
-  it('renders correctly with given props', () => {
+describe('MovieTitle', () => {
+  test('renders correctly with given props', () => {
     render(<MovieTitle {...mockProps} />)
 
     expect(screen.getByText('Inception')).toBeInTheDocument()
@@ -23,14 +19,17 @@ describe('MovieTitle Component', () => {
     expect(screen.getByText('Action, Sci-Fi')).toBeInTheDocument()
     expect(screen.getByRole('img', { name: /Inception/i })).toHaveAttribute('src', mockProps.imgURL)
   })
+  test('calls onClick when container is clicked', async () => {
+    const user = userEvent.setup()
 
-  it('calls onClick when container is clicked', async () => {
     render(<MovieTitle {...mockProps} />)
     await user.click(screen.getByText('Inception'))
-    expect(mockProps.onClick).toHaveBeenCalled()
+    expect(mockProps.onClick).toHaveBeenCalledTimes(1)
   })
 
-  it('opens and closes the modal correctly', async () => {
+  test('opens and closes the modal correctly', async () => {
+    const user = userEvent.setup()
+
     render(<MovieTitle {...mockProps} />)
 
     const openIcon = screen.getByTestId('open-icon')

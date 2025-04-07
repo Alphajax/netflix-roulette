@@ -1,6 +1,6 @@
 import styles from './styles.module.scss'
 
-interface Props {
+interface MovieDetailsProps {
   imgURL: string
   name: string
   genres: string[]
@@ -18,10 +18,10 @@ export const MovieDetails = ({
   duration,
   description,
   genres,
-}: Props) => (
+}: MovieDetailsProps) => (
   <div className={styles.container}>
     <div>
-      <img alt={name} className={styles.poster} src={imgURL} />
+      <img alt="" className={styles.poster} src={imgURL} />
     </div>
     <div className={styles.right}>
       <p className={styles.name}>

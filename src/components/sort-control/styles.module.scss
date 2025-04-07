@@ -1,14 +1,13 @@
 .container {
   display: flex;
-  .label {
-    text-align: center;
-    margin: auto;
-    font-family: Montserrat, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: 0.89px;
-    text-transform: uppercase;
-
-  }
+}
+.label {
+  text-align: center;
+  margin: auto;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0.89px;
+  text-transform: uppercase;
 }

@@ -4,12 +4,12 @@ import { useRef } from 'react'
 import styles from './search.module.scss'
 import { Button } from '../button'
 
-interface Props {
+interface SearchProps {
   initialSearch: string
   onSearch: (search: string) => void
 }
 
-export const Search = ({ initialSearch, onSearch }: Props) => {
+export const Search = ({ initialSearch, onSearch }: SearchProps) => {
   const input = useRef<HTMLInputElement>(null)
 
   const handleSubmitForm: FormEventHandler<HTMLFormElement> = (e) => {

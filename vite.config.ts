@@ -13,6 +13,7 @@ export default defineConfig({
       exclude: ['**/index.ts'],
       provider: 'v8',
     },
+    clearMocks: true,
   },
   server: {
     host: true,

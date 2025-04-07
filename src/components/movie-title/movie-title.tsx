@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { CloseOutlined, MoreOutlined } from '@ant-design/icons'
 import { Button } from '../../ui'
 
-interface Props {
+interface MovieTitleProps {
   imgURL: string
   name: string
   year: number
@@ -12,7 +12,7 @@ interface Props {
   onClick: MouseEventHandler
 }
 
-export const MovieTitle = ({ imgURL, name, year, genres, onClick }: Props) => {
+export const MovieTitle = ({ imgURL, name, year, genres, onClick }: MovieTitleProps) => {
   const [isOpened, setIsOpened] = useState(false)
 
   const handleOpenModal = () => {
@@ -24,7 +24,9 @@ export const MovieTitle = ({ imgURL, name, year, genres, onClick }: Props) => {
 
   return (
     <div className={styles.container} onClick={onClick}>
-      <MoreOutlined className={styles.openIcon} data-testid="open-icon" onClick={handleOpenModal} />
+      <button className={styles.openIcon} onClick={handleOpenModal}>
+        <MoreOutlined />
+      </button>
       <img alt={name} className={styles.image} src={imgURL} />
       <div className={styles.footer}>
         <div className={styles.firstLine}>

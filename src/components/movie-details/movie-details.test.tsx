@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
 import { MovieDetails } from './movie-details.tsx'
 
 const mockProps = {
@@ -16,10 +15,10 @@ const mockProps = {
 }
 
 describe('MovieDetails component', () => {
-  it('renders movie details correctly', () => {
+  test('renders movie details correctly', () => {
     render(<MovieDetails {...mockProps} />)
 
-    const image = screen.getByAltText(mockProps.name)
+    const image = screen.getByRole('presentation')
     expect(image).toBeInTheDocument()
     expect(image).toHaveAttribute('src', mockProps.imgURL)
 
@@ -40,11 +39,10 @@ describe('MovieDetails component', () => {
     expect(description).toBeInTheDocument()
   })
 
-  it('renders the genres as a comma-separated list', () => {
+  test('renders the genres as a comma-separated list', () => {
     render(<MovieDetails {...mockProps} />)
 
     const genres = screen.getByText(mockProps.genres.join(', '))
     expect(genres).toBeInTheDocument()
-    expect(genres).toHaveTextContent('биография, комедия, драма')
   })
 })
