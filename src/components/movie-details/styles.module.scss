@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  gap: 50px;
+}
+.poster {
+  width: 323px;
+  height: auto;
+}
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.name {
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: 1px;
+  text-align: left;
+  text-transform: uppercase;
+}
+.rating {
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-align: center;
+  text-transform: uppercase;
+  border: 1px solid var(--white);
+  border-radius: 30px;
+  padding: 14px;
+  vertical-align: middle;
+  margin: 16px 16px 0 16px;
+}
+
+.genres {
+  text-transform: capitalize;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0;
+}
+.yearAndDuration {
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: var(--red-accent);
+  display: flex;
+  gap: 50px;
+  justify-content: left;
+}
+.description {
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0;
+}

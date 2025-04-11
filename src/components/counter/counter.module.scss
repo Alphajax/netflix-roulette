@@ -1,5 +1,7 @@
 .counter {
   color: var(--red-accent);
+  max-width: 200px;
+  text-align: center;
 }
 
 .button {
@@ -10,7 +12,18 @@
   letter-spacing: 0;
   line-height: 100%;
   border-radius: 4px;
-  margin: 6px;
+  height: 100%;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  margin: 6px
+}
+
+.button:focus {
+  outline: 2px solid var(--red-accent);
+  opacity: 1;
 }
 
 .primary {
