@@ -21,3 +21,9 @@ form {
   line-height: 100%;
   border: none;
 }
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}

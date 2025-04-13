@@ -5,7 +5,7 @@ import { useArgs } from '@storybook/preview-api'
 
 const meta: Meta<typeof Dialog> = {
   component: Dialog,
-  title: 'Components/Dialog',
+  title: 'UI/dialog',
 }
 
 export default meta

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import SelectIcon from '../../assets/select-icon.svg'
 
 import styles from './styles.module.scss'
+import { shortenString } from '../../utils'
 
 export type SelectOption = string
 export type SelectOptions = SelectOption[]
@@ -11,10 +12,11 @@ export type SelectOptions = SelectOption[]
 interface SelectProps {
   options: SelectOptions
   name: string
-  onSelect: (name: string) => void
+  onSelect: (name: string[]) => void
   initialSelectedOptions: string[]
   multiSelect: boolean
   placeholder?: string
+  id?: string
 }
 
 export const Select = ({
@@ -24,6 +26,7 @@ export const Select = ({
   initialSelectedOptions,
   onSelect,
   placeholder,
+  id,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<SelectOption[]>([...initialSelectedOptions])
@@ -44,28 +47,36 @@ export const Select = ({
   }, [])
 
   const toggleSelection = (option: SelectOption) => {
-    onSelect(option)
     if (multiSelect) {
       setSelected((prevSelected) => {
         if (prevSelected.includes(option)) {
-          return prevSelected.filter((selectedOption) => selectedOption !== option)
+          const newValue = prevSelected.filter((selectedOption) => selectedOption !== option)
+          onSelect(newValue)
+          return newValue
         } else {
-          return [...prevSelected, option]
+          const newValue = [...prevSelected, option]
+          onSelect(newValue)
+          return newValue
         }
       })
     } else {
+      onSelect([option])
       setSelected([option])
     }
   }
 
   const isSelected = (option: SelectOption) => selected.includes(option)
 
+  const visiblePlaceholder =
+    (selected.length ? shortenString(selected.join(', '), 30) : null) ?? placeholder ?? name
+
   return (
     <div className={styles.container} ref={selectRef}>
       <select
         aria-label={name}
         className={styles.nativeSelect}
-        id={name}
+        defaultValue={initialSelectedOptions}
+        id={id ?? name}
         multiple={multiSelect}
         name={name}
         value={multiSelect ? selected : selected[0]}
@@ -85,11 +96,12 @@ export const Select = ({
         aria-hidden="true"
         className={styles.select}
         data-testid={`select-option-${name}`}
+        type="button"
         onClick={() => {
           setIsOpen(!isOpen)
         }}
       >
-        {placeholder ?? name}
+        {visiblePlaceholder}
         <img
           alt="arrow-icon"
           className={clsx(styles.icon, { [styles.closedIcon]: !isOpen })}
@@ -103,6 +115,7 @@ export const Select = ({
             <button
               className={styles.option}
               key={option}
+              type="button"
               onClick={() => {
                 toggleSelection(option)
               }}

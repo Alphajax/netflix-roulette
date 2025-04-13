@@ -12,16 +12,16 @@ type Story = StoryObj<typeof GenreSelect>
 
 export const Primary: Story = {
   args: {
-    selected: '',
-    options: ['Crime', 'Documentary', 'Horror', 'Comedy'],
+    selected: [''],
+    options: ['криминал', 'документальный', 'ужасы', 'комедия'],
   },
   render: function Render() {
     const [{ selected, options }, updateArgs] = useArgs()
 
-    function onSelect(option: string) {
+    function onSelect(option: string[]) {
       updateArgs({ selected: option })
     }
 
-    return <GenreSelect options={options} selected={selected} onSelect={onSelect} />
+    return <GenreSelect name="genre" options={options} selected={selected} onSelect={onSelect} />
   },
 }
