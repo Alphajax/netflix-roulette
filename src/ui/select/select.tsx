@@ -75,7 +75,7 @@ export const Select = ({
       <select
         aria-label={name}
         className={styles.nativeSelect}
-        defaultValue={initialSelectedOptions}
+        defaultValue={multiSelect ? initialSelectedOptions : initialSelectedOptions[0]}
         id={id ?? name}
         multiple={multiSelect}
         name={name}
@@ -121,14 +121,12 @@ export const Select = ({
               }}
             >
               <input
+                readOnly
                 aria-hidden="true"
                 checked={isSelected(option)}
                 className={styles.checkbox}
                 data-testid={`select-option-${option}`}
                 type="checkbox"
-                onChange={() => {
-                  toggleSelection(option)
-                }}
               />
               {option}
             </button>
