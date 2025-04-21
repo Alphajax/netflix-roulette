@@ -3,11 +3,12 @@ import { render, screen } from '@testing-library/react'
 import { MovieDetails } from './movie-details.tsx'
 
 const mockProps = {
+  id: '1',
   imgURL:
     'https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/4b27e219-a8a5-4d85-9874-57d6016e0837/600x900',
   name: 'Зеленая книга',
-  year: 2018,
-  rating: 8.5,
+  year: '2018',
+  rating: '8.5',
   duration: '2ч 10м',
   genres: ['биография', 'комедия', 'драма'],
   description:

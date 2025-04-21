@@ -1,18 +1,21 @@
 .label {
-  position: relative;
-  top: 1px;
   font-family: Montserrat, sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
   line-height: 100%;
   letter-spacing: 0.89px;
   text-transform: uppercase;
-  color: var(--red-accent);
+  color: var(--white);
   padding: 6px;
+}
+
+.labelContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .container {
   all: unset;
   display: flex;
-  flex-direction: column;
 }
