@@ -1,4 +1,5 @@
 .container {
+  width: 100%;
   display: flex;
   margin: 12px 0;
   gap: 8px;
@@ -21,9 +22,11 @@ form {
   font-size: 20px;
   line-height: 100%;
   border: none;
+  width: 70%;
 }
 
 .buttonContainer {
+  width: 20%;
   display: flex;
   flex-direction: column;
   justify-content: end;

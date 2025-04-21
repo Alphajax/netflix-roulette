@@ -1,7 +1,6 @@
 .container {
   position: relative;
   width: 322px;
-  background-color: var(--dark-gray);
 }
 .name {
   font-family: Montserrat, serif;
@@ -40,6 +39,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  padding: 8px;
 }
 
 .image {

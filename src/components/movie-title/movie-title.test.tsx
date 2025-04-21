@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event'
 const mockProps = {
   imgURL: 'https://example.com/image.jpg',
   name: 'Inception',
-  year: 2010,
+  year: '2010',
   genres: ['Action', 'Sci-Fi'],
   onClick: vi.fn(),
 }
