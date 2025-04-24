@@ -7,7 +7,7 @@ import { Button, Dialog } from '../../ui'
 interface MovieTitleProps {
   imgURL: string
   name: string
-  year: number
+  year: string
   genres: string[]
   onClick: MouseEventHandler
 }
