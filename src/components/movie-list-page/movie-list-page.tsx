@@ -5,20 +5,46 @@ import { SortControl } from '../sort-control'
 import clsx from 'clsx'
 import { MovieTitle } from '../movie-title'
 import type { IMovie } from '../../types'
-import { movies } from './mock.ts'
 import { MovieDetails } from '../movie-details'
+import { useRequest } from '../../hooks/use-request.ts'
+import type { ApiResponse } from './utils.ts'
+import { mapMovies } from './utils.ts'
 
-const tabs = ['все', 'криминал', 'документальный', 'ужасы', 'комедия']
+const tabs = [
+  'Drama',
+  'Romance',
+  'Fantasy',
+  'Adventure',
+  'Science Fiction',
+  'Action',
+  'Comedy',
+  'Family',
+]
 export const MovieListPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
-  const [sortCriteria, setSortCriteria] = useState('RELEASE DATE')
+  const [sortCriteria, setSortCriteria] = useState('release_date')
   const [activeGenre, setActiveGenre] = useState(() => tabs[0])
   const [movieList, setMovieList] = useState<IMovie[]>([])
   const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
 
+  const { run } = useRequest<ApiResponse>({
+    method: 'GET',
+    url: 'http://localhost:4000/movies',
+    onSuccess: (data) => {
+      setMovieList(mapMovies(data))
+    },
+    params: {
+      search: searchQuery,
+      searchBy: 'title',
+      sortBy: sortCriteria,
+      sortOrder: 'asc',
+      filter: [activeGenre],
+    },
+  })
+
   useEffect(() => {
-    setMovieList(movies)
-  }, [])
+    void run()
+  }, [searchQuery, sortCriteria, activeGenre])
 
   return (
     <div className={styles.container}>

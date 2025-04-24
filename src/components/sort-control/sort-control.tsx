@@ -24,7 +24,7 @@ export const SortControl = ({ value, onChange }: SortControlProps) => {
         initialSelectedOptions={[value]}
         multiSelect={false}
         name="Sort By"
-        options={['RELEASE DATE', 'TITLE']}
+        options={['release_date', 'title']}
         onSelect={handleSortSelectChange}
       />
     </div>
