@@ -15,14 +15,15 @@ export interface ApiResponse {
   data: ApiMovie[]
 }
 
-export const mapMovies = (response: ApiResponse): IMovie[] =>
-  response.data.map((movie) => ({
-    id: movie.id.toString(),
-    imgURL: movie.poster_path,
-    name: movie.title,
-    genres: movie.genres,
-    year: new Date(movie.release_date).getFullYear().toString(),
-    rating: movie.vote_average.toFixed(1),
-    duration: `${movie.runtime.toString()} мин`,
-    description: movie.overview,
-  }))
+export const mapMovie = (movie: ApiMovie): IMovie => ({
+  id: movie.id.toString(),
+  imgURL: movie.poster_path,
+  name: movie.title,
+  genres: movie.genres,
+  year: new Date(movie.release_date).getFullYear().toString(),
+  rating: movie.vote_average.toFixed(1),
+  duration: `${movie.runtime.toString()} мин`,
+  description: movie.overview,
+})
+
+export const mapMovies = (response: ApiResponse): IMovie[] => response.data.map(mapMovie)

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
-import { Button, Search } from '../../ui'
+import { Button } from '../../ui'
 import { SortControl } from '../sort-control'
 import clsx from 'clsx'
 import { MovieTitle } from '../movie-title'
 import type { IMovie } from '../../types'
-import { MovieDetails } from '../movie-details'
 import { useRequest } from '../../hooks/use-request.ts'
 import type { ApiResponse } from './utils.ts'
 import { mapMovies } from './utils.ts'
+import { Outlet, useSearchParams } from 'react-router-dom'
 
 const tabs = [
   'Drama',
@@ -21,11 +21,14 @@ const tabs = [
   'Family',
 ]
 export const MovieListPage = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [sortCriteria, setSortCriteria] = useState('release_date')
-  const [activeGenre, setActiveGenre] = useState(() => tabs[0])
+  const [searchParams, setSearchParams] = useSearchParams()
   const [movieList, setMovieList] = useState<IMovie[]>([])
-  const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
+  const initialQuery = searchParams.get('query') ?? ''
+  const initialSort = searchParams.get('sortBy') ?? 'release_date'
+  const initialGenre = searchParams.get('genre') ?? tabs[0]
+  const [searchQuery] = useState(initialQuery)
+  const [sortCriteria, setSortCriteria] = useState(initialSort)
+  const [activeGenre, setActiveGenre] = useState(initialGenre)
 
   const { run } = useRequest<ApiResponse>({
     method: 'GET',
@@ -34,15 +37,25 @@ export const MovieListPage = () => {
       setMovieList(mapMovies(data))
     },
     params: {
-      search: searchQuery,
+      search: searchParams.get('query'),
       searchBy: 'title',
-      sortBy: sortCriteria,
+      sortBy: searchParams.get('sortBy'),
       sortOrder: 'asc',
-      filter: [activeGenre],
+      filter: searchParams.get('genre'),
     },
   })
 
   useEffect(() => {
+    void run()
+  }, [searchParams])
+
+  useEffect(() => {
+    setSearchParams({
+      query: searchQuery,
+      sortBy: sortCriteria,
+      sortOrder: 'asc',
+      genre: activeGenre,
+    })
     void run()
   }, [searchQuery, sortCriteria, activeGenre])
 
@@ -61,18 +74,7 @@ export const MovieListPage = () => {
           <Button variant="add">+ Add Movie</Button>
         </div>
         <div className={styles.headerContent}>
-          {selectedMovie ? (
-            <MovieDetails {...selectedMovie} />
-          ) : (
-            <>
-              <h2 className={styles.contentHeader}>FIND YOUR MOViE</h2>
-              <Search
-                initialSearch={searchQuery}
-                placeholder="What do you want to watch?"
-                onSearch={setSearchQuery}
-              />
-            </>
-          )}
+          <Outlet />
         </div>
       </header>
       <main className={styles.mainContainer}>
@@ -82,8 +84,10 @@ export const MovieListPage = () => {
               <ul className={styles.tabsItems}>
                 {tabs.map((tab) => (
                   <li
-                    className={clsx({ [styles.active]: tab === activeGenre })}
                     value={tab}
+                    className={clsx({
+                      [styles.active]: tab.toLowerCase() === activeGenre.toLowerCase(),
+                    })}
                     onClick={() => {
                       setActiveGenre(tab)
                     }}
@@ -100,12 +104,10 @@ export const MovieListPage = () => {
           {movieList.map((movie) => (
             <MovieTitle
               genres={movie.genres}
+              id={movie.id}
               imgURL={movie.imgURL}
               name={movie.name}
               year={movie.year}
-              onClick={() => {
-                setSelectedMovie(movie)
-              }}
             />
           ))}
         </div>
