@@ -7,14 +7,14 @@ import { genreSelectOptions } from './components/genre-select/constants.ts'
 type SelectedGenre = typeof genreSelectOptions
 
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<SelectedGenre>(() => genreSelectOptions)
+  const [selectedGenres, setSelectedGenres] = useState<SelectedGenre>(genreSelectOptions)
 
   const handleSearch = useCallback((search: string) => {
     alert('search by value:' + search)
   }, [])
 
   const handleSelectChange = (selected: string[]) => {
-    setSelectedGenre(selected)
+    setSelectedGenres(selected)
     alert('selected:' + selected.join(','))
   }
 
@@ -23,9 +23,8 @@ function App() {
       <Counter initialValue={7} />
       <Search initialSearch="netflix" onSearch={handleSearch} />
       <GenreSelect
-        name="Select Genre"
         options={genreSelectOptions}
-        selected={selectedGenre}
+        selected={selectedGenres}
         onSelect={handleSelectChange}
       />
     </>

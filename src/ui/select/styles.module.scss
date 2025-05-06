@@ -67,7 +67,7 @@
   font-size: 18px;
 }
 
-.option:focus {
+.focused {
   background-color: var(--dark-gray);
   margin: 2px;
   width: calc(100% - 4px);

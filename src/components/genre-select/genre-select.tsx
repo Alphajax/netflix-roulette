@@ -4,13 +4,12 @@ import { useId } from 'react'
 import styles from './styles.module.scss'
 
 export interface GenreSelectProps {
-  name: string
   options: SelectOptions
   selected: string[]
   onSelect: (name: string[]) => void
 }
 
-export const GenreSelect = ({ options, onSelect, selected, name }: GenreSelectProps) => {
+export const GenreSelect = ({ options, onSelect, selected }: GenreSelectProps) => {
   const id = useId()
   return (
     <div className={styles.container}>
@@ -21,7 +20,7 @@ export const GenreSelect = ({ options, onSelect, selected, name }: GenreSelectPr
         multiSelect
         id={id}
         initialSelectedOptions={selected}
-        name={name}
+        name="genres"
         options={options}
         placeholder="Select Genre"
         onSelect={onSelect}

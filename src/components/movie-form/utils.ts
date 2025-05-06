@@ -1,12 +1,15 @@
-import type { IMovie } from '../../types'
+import type { Movie } from '../../types'
 
-export const convertFormDataToMovie = (fd: Record<string, string | undefined>): IMovie => ({
-  name: fd.name ?? '',
-  id: fd.id ?? '',
-  imgURL: fd.imgURL ?? '',
-  genres: (fd.genres ?? '').split(','),
-  year: fd.year ?? '0',
-  rating: fd.rating ?? '0.0',
-  duration: fd.duration ?? '0h 0m',
-  description: fd.description ?? '',
+export const convertFormDataToMovie = (
+  formData: Record<string, string | undefined>,
+  id?: string,
+): Movie => ({
+  name: formData.name ?? '',
+  id: id ?? '',
+  imgURL: formData.imgURL ?? '',
+  genres: (formData.genres ?? '').split(','),
+  year: formData.year ?? '0',
+  rating: formData.rating ?? '0.0',
+  duration: formData.duration ?? '0h 0m',
+  description: formData.description ?? '',
 })

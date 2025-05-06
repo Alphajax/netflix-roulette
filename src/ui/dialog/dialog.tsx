@@ -1,18 +1,17 @@
-// Пример Dialog компонента
 import { CloseOutlined } from '@ant-design/icons'
 import { FocusTrap } from 'focus-trap-react'
 import styles from './styles.module.scss'
-import type { JSX } from 'react'
+import type { JSX, PropsWithChildren } from 'react'
 
-interface DialogProps {
+type DialogProps = PropsWithChildren<{
   show: boolean
   title: string | JSX.Element
   onClose: () => void
-  children: React.ReactNode
-}
+}>
 
-export const Dialog = ({ show, title, children, onClose }: DialogProps) =>
-  show ? (
+export const Dialog = ({ show, title, children, onClose }: DialogProps) => {
+  if (!show) return null
+  return (
     <div className={styles.overlay}>
       <div aria-modal="true" className={styles.container} role="dialog">
         <FocusTrap
@@ -36,4 +35,5 @@ export const Dialog = ({ show, title, children, onClose }: DialogProps) =>
         </FocusTrap>
       </div>
     </div>
-  ) : null
+  )
+}

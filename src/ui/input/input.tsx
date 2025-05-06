@@ -1,14 +1,9 @@
 import styles from './styles.module.scss'
-import type { DetailedHTMLProps, InputHTMLAttributes } from 'react'
+import type { InputHTMLAttributes } from 'react'
 import { useId } from 'react'
 import clsx from 'clsx'
 
-interface InputProps
-  extends Omit<
-    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
-    'className'
-  > {
-  placeholder?: string
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'> {
   label?: string
   inputClassName?: string
   containerClassName?: string

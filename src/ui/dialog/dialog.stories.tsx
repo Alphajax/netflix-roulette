@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Dialog } from './dialog.tsx'
-import styles from './styles.module.scss'
+import styles from './dialog.stories.styles.module.scss'
 import { useArgs } from '@storybook/preview-api'
 
 const meta: Meta<typeof Dialog> = {

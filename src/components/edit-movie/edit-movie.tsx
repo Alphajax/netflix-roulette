@@ -1,12 +1,12 @@
-import type { IMovie } from '../../types'
+import type { Movie } from '../../types'
 import { Dialog } from '../../ui'
 import { MovieForm } from '../movie-form'
 
 interface IEditMovieProps {
   show: boolean
   onClose: () => void
-  onSubmit: (movie: IMovie) => void
-  initialMovieInfo: IMovie
+  onSubmit: (movie: Movie) => void
+  initialMovieInfo: Movie
 }
 
 export const EditMovie = ({ show, onClose, onSubmit, initialMovieInfo }: IEditMovieProps) => (

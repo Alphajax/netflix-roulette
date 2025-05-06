@@ -4,24 +4,24 @@ import { useCallback } from 'react'
 import { useState } from 'react'
 import { Button, Input, TextArea } from '../../ui'
 import { GenreSelect } from '../genre-select'
-import type { IMovie } from '../../types'
+import type { Movie } from '../../types'
 import { convertFormDataToMovie } from './utils.ts'
+import { genres } from '../../utils'
 
 interface MovieFormProps {
-  initialMovieInfo?: IMovie
-  onSubmit: (formData: IMovie) => void
+  initialMovieInfo?: Movie
+  onSubmit: (formData: Movie) => void
 }
 
 export const MovieForm = ({ initialMovieInfo, onSubmit }: MovieFormProps) => {
-  const genres = ['криминал', 'документальный', 'ужасы', 'комедия', 'триллер', 'драма']
-  const [selectedGenres, setSelectedGenres] = useState(() => initialMovieInfo?.genres ?? [])
+  const [selectedGenres, setSelectedGenres] = useState(initialMovieInfo?.genres ?? [])
 
   const handleSubmitForm: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     formData.append('genres', selectedGenres.join(','))
     const movie = Object.fromEntries(formData) as Record<string, string | undefined>
-    onSubmit(convertFormDataToMovie(movie))
+    onSubmit(convertFormDataToMovie(movie, initialMovieInfo?.id))
   }
   const handleSelectGenres = useCallback((genres: string[]) => {
     setSelectedGenres(genres)
@@ -55,12 +55,7 @@ export const MovieForm = ({ initialMovieInfo, onSubmit }: MovieFormProps) => {
             name="rating"
             placeholder="7.8"
           />
-          <GenreSelect
-            name="genres"
-            options={genres}
-            selected={selectedGenres}
-            onSelect={handleSelectGenres}
-          />
+          <GenreSelect options={genres} selected={selectedGenres} onSelect={handleSelectGenres} />
           <Input
             defaultValue={initialMovieInfo?.duration}
             label="Runtime"

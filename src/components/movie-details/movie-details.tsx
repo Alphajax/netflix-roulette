@@ -1,7 +1,7 @@
 import styles from './styles.module.scss'
-import type { IMovie } from '../../types'
+import type { Movie } from '../../types'
 
-type MovieDetailsProps = IMovie
+type MovieDetailsProps = Movie
 
 export const MovieDetails = ({
   imgURL,

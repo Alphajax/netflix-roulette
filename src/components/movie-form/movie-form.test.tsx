@@ -27,7 +27,6 @@ describe('MovieForm', () => {
     expect(screen.getByRole('textbox', { name: 'Movie Url' })).toBeInTheDocument()
     expect(screen.getByRole('textbox', { name: 'Rating' })).toBeInTheDocument()
     expect(screen.getByRole('textbox', { name: 'Runtime' })).toBeInTheDocument()
-    expect(screen.getByRole('listbox', { name: 'genres' })).toBeInTheDocument()
     expect(screen.getByRole('textbox', { name: 'Overview' })).toBeInTheDocument()
   })
 
@@ -48,9 +47,6 @@ describe('MovieForm', () => {
     expect(screen.getByRole('textbox', { name: 'Runtime' })).toHaveValue(
       mockProps.initialMovieInfo.duration,
     )
-    expect(screen.getByRole('listbox', { name: 'genres' })).toHaveValue(
-      mockProps.initialMovieInfo.genres,
-    )
     expect(screen.getByRole('textbox', { name: 'Overview' })).toHaveValue(
       mockProps.initialMovieInfo.description,
     )
@@ -62,6 +58,13 @@ describe('MovieForm', () => {
     render(<MovieForm initialMovieInfo={mockProps.initialMovieInfo} onSubmit={onSubmit} />)
     await user.click(screen.getByRole('button'))
     expect(onSubmit).toHaveBeenCalledTimes(1)
+    expect(onSubmit).toHaveBeenCalledWith(mockProps.initialMovieInfo)
+    onSubmit.mockClear()
+    await user.clear(screen.getByRole('textbox', { name: 'Rating' }))
+    await user.type(screen.getByRole('textbox', { name: 'Rating' }), '7.0')
+    await user.click(screen.getByRole('button'))
+    expect(onSubmit).toHaveBeenCalledTimes(1)
+    expect(onSubmit).toHaveBeenCalledWith({ ...mockProps.initialMovieInfo, rating: '7.0' })
   })
 
   test('genres should be able to be selected', async () => {

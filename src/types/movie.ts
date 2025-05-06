@@ -1,4 +1,4 @@
-export interface IMovie {
+export interface Movie {
   id: string
   imgURL: string
   name: string

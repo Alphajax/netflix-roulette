@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import './styles.module.scss'
 import { MovieForm } from './movie-form.tsx'
 
 const meta: Meta<typeof MovieForm> = {
