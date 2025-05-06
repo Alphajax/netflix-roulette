@@ -1,8 +1,8 @@
 import styles from './styles.module.scss'
 import type { MouseEventHandler } from 'react'
 import { useState } from 'react'
-import { CloseOutlined, MoreOutlined } from '@ant-design/icons'
-import { Button } from '../../ui'
+import { MoreOutlined } from '@ant-design/icons'
+import { Button, Dialog } from '../../ui'
 
 interface MovieTitleProps {
   imgURL: string
@@ -37,19 +37,12 @@ export const MovieTitle = ({ imgURL, name, year, genres, onClick }: MovieTitlePr
           <span>{genres.join(', ')}</span>
         </div>
       </div>
-      {isOpened && (
-        <div className={styles.modal}>
-          <CloseOutlined
-            className={styles.closeIcon}
-            data-testid="close-icon"
-            onClick={handleCloseModal}
-          />
-          <div className={styles.buttonsContainer}>
-            <Button variant="primary">Edit</Button>
-            <Button variant="cancel">Delete</Button>
-          </div>
+      <Dialog show={isOpened} title="" onClose={handleCloseModal}>
+        <div className={styles.buttonsContainer}>
+          <Button variant="primary">Edit</Button>
+          <Button variant="cancel">Delete</Button>
         </div>
-      )}
+      </Dialog>
     </div>
   )
 }

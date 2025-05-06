@@ -32,12 +32,12 @@ describe('MovieTitle', () => {
 
     render(<MovieTitle {...mockProps} />)
 
-    const openIcon = screen.getByTestId('open-icon')
+    const openIcon = screen.getByRole('button')
     await user.click(openIcon)
     expect(screen.getByText('Edit')).toBeInTheDocument()
     expect(screen.getByText('Delete')).toBeInTheDocument()
 
-    const closeIcon = screen.getByTestId('close-icon')
+    const closeIcon = screen.getByTestId('close')
     await user.click(closeIcon)
     expect(screen.queryByText('Edit')).not.toBeInTheDocument()
     expect(screen.queryByText('Delete')).not.toBeInTheDocument()

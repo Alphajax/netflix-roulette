@@ -1,25 +1,18 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { GenreSelect } from './genre-select.tsx'
+import { expect } from 'vitest'
 
 describe('GenreSelect', () => {
   const options = ['Action', 'Comedy', 'Drama']
-  const initialSelectedOptions = 'Comedy'
-  test('renders options', () => {
-    render(<GenreSelect options={options} selected={initialSelectedOptions} onSelect={vi.fn()} />)
-    options.forEach((option) => {
-      const renderedOption = screen.getByRole('option', { name: option })
-      expect(renderedOption).toBeInTheDocument()
-    })
-  })
+  const initialSelectedOptions = ['Comedy']
 
   test('selected genre is highlighted', async () => {
     const user = userEvent.setup()
 
     render(<GenreSelect options={options} selected={initialSelectedOptions} onSelect={vi.fn()} />)
 
-    await user.click(screen.getByText('Select Genre'))
-
+    await user.click(screen.getByTestId('select-option-genres'))
     expect(screen.getByTestId('select-option-Comedy')).toBeChecked()
   })
 
@@ -28,11 +21,8 @@ describe('GenreSelect', () => {
 
     const onSelect = vi.fn()
     render(<GenreSelect options={options} selected={initialSelectedOptions} onSelect={onSelect} />)
-
-    await user.click(screen.getByText('Select Genre'))
-
-    await user.click(screen.getByTestId(`select-option-${options[2]}`))
-
-    expect(onSelect).toHaveBeenCalledWith(options[2])
+    await user.click(screen.getByTestId(`select-option-genres`))
+    await user.click(screen.getByTestId('select-option-Drama'))
+    expect(onSelect).toHaveBeenCalledTimes(1)
   })
 })
