@@ -1,4 +1,4 @@
-import { MovieListPage } from './components'
+import { MovieListPage } from './pages'
 
 function App() {
   return <MovieListPage />

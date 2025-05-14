@@ -9,11 +9,13 @@
 }
 
 .backgroundImage {
-  z-index: 0;
+  z-index: 1;
+  min-height: 396px;
   width: 100vw;
   opacity: 0.6;
   position: absolute;
   filter: blur(8.154845237731934px);
+  background-image: url("../../../public/background.png");
 }
 
 .headerTop {
@@ -63,7 +65,6 @@
 
 .mainContainer {
   background-color: var(--blackish);
-  margin-top: 8px;
 }
 
 .tabs {
@@ -76,16 +77,6 @@
     list-style: none;
     display: flex;
     gap: 16px;
-  }
-  li {
-    font-family: Montserrat, serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: 0;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding-bottom: 8px;
   }
 }
 
@@ -103,6 +94,19 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  button {
+    border: none;
+    background: none;
+    font-family: Montserrat, serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding-bottom: 8px;
+    color: var(--white);
+  }
 }
 
 .active {

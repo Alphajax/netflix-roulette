@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import { Button, Search } from '../../ui'
-import { SortControl } from '../sort-control'
+import { MovieDetails, MovieTitle, SortControl } from '../../components'
 import clsx from 'clsx'
-import { MovieTitle } from '../movie-title'
-import type { IMovie } from '../../types'
-import { MovieDetails } from '../movie-details'
+import type { Movie } from '../../types'
 import { useRequest } from '../../hooks/use-request.ts'
 import type { ApiResponse } from './utils.ts'
 import { mapMovies } from './utils.ts'
@@ -23,9 +21,9 @@ const tabs = [
 export const MovieListPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortCriteria, setSortCriteria] = useState('release_date')
-  const [activeGenre, setActiveGenre] = useState(() => tabs[0])
-  const [movieList, setMovieList] = useState<IMovie[]>([])
-  const [selectedMovie, setSelectedMovie] = useState<IMovie | null>(null)
+  const [activeGenre, setActiveGenre] = useState(tabs[0])
+  const [movieList, setMovieList] = useState<Movie[]>([])
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
 
   const { run } = useRequest<ApiResponse>({
     method: 'GET',
@@ -49,23 +47,19 @@ export const MovieListPage = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <img
-          alt="background image"
-          className={styles.backgroundImage}
-          src="../../../public/background.png"
-        />
+        <div className={styles.backgroundImage} />
         <div className={styles.headerTop}>
           <h1 className={styles.siteName}>
             <span className={styles.widePartOfName}>netflix</span>roulette
           </h1>
-          <Button variant="add">+ Add Movie</Button>
+          <Button variant="secondary">+ Add Movie</Button>
         </div>
         <div className={styles.headerContent}>
           {selectedMovie ? (
             <MovieDetails {...selectedMovie} />
           ) : (
             <>
-              <h2 className={styles.contentHeader}>FIND YOUR MOViE</h2>
+              <h2 className={styles.contentHeader}>Find your movie</h2>
               <Search
                 initialSearch={searchQuery}
                 placeholder="What do you want to watch?"
@@ -79,16 +73,22 @@ export const MovieListPage = () => {
         <div className={styles.navContentContainer}>
           <nav className={styles.tabs}>
             <div className={styles.tabsContainer}>
-              <ul className={styles.tabsItems}>
+              <ul className={styles.tabsItems} role="tablist">
                 {tabs.map((tab) => (
                   <li
                     className={clsx({ [styles.active]: tab === activeGenre })}
+                    key={tab}
+                    role="tab"
                     value={tab}
-                    onClick={() => {
-                      setActiveGenre(tab)
-                    }}
                   >
-                    {tab}
+                    <button
+                      tabIndex={0}
+                      onClick={() => {
+                        setActiveGenre(tab)
+                      }}
+                    >
+                      {tab}
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -101,6 +101,7 @@ export const MovieListPage = () => {
             <MovieTitle
               genres={movie.genres}
               imgURL={movie.imgURL}
+              key={movie.id}
               name={movie.name}
               year={movie.year}
               onClick={() => {
