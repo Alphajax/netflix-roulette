@@ -5,6 +5,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  :focus {
+    background-color: var(--dark-gray);
+    margin: 2px;
+    outline: 1px solid var(--red-accent);
+  }
 }
 
 body {

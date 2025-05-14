@@ -95,9 +95,11 @@ export const Select = ({
         break
       case 'Tab':
         setIsOpen(false)
+        setFocusedIndex((prev) => (prev + 1) % options.length)
         break
     }
   }
+  console.log(focusedIndex)
 
   return (
     <>
@@ -140,24 +142,32 @@ export const Select = ({
                 tabIndex={-1}
                 className={clsx(styles.option, {
                   [styles.focused]: focusedIndex === index,
+                  [styles.selected]: isSelected(option),
                 })}
-                ref={(el) => {
-                  if (focusedIndex === index && el) {
-                    el.focus()
-                  }
-                }}
-                onClick={() => {
-                  toggleSelection(option)
-                }}
               >
-                <input
-                  readOnly
-                  checked={isSelected(option)}
-                  className={styles.checkbox}
-                  data-testid={`select-option-${option}`}
-                  type="checkbox"
-                />
-                {option}
+                <button
+                  className={styles.optionButton}
+                  ref={(el) => {
+                    if (focusedIndex === index && el) {
+                      el.focus()
+                    }
+                  }}
+                  onClick={() => {
+                    toggleSelection(option)
+                  }}
+                >
+                  {multiSelect && (
+                    <input
+                      readOnly
+                      checked={isSelected(option)}
+                      className={styles.checkbox}
+                      data-testid={`select-option-${option}`}
+                      type="checkbox"
+                    />
+                  )}
+
+                  {option}
+                </button>
               </li>
             ))}
           </ul>
