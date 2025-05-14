@@ -47,7 +47,6 @@ export const MovieListPage = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <div className={styles.backgroundImage} />
         <div className={styles.headerTop}>
           <h1 className={styles.siteName}>
             <span className={styles.widePartOfName}>netflix</span>roulette
