@@ -6,7 +6,6 @@ import clsx from 'clsx'
 import type { Movie } from '../../types'
 import { useGetMovies } from '../../hooks'
 
-
 const tabs = [
   'Drama',
   'Romance',
@@ -33,8 +32,14 @@ export const MovieListPage = () => {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.headerTop}>
-          <h1 className={styles.siteName}>
-            <span className={styles.widePartOfName}>netflix</span>roulette
+          <h1
+            className={styles.siteName}
+            onClick={() => {
+              setSelectedMovie(null)
+            }}
+          >
+            <span className={styles.widePartOfName}>netflix</span>
+            roulette
           </h1>
           <Button variant="secondary">+ Add Movie</Button>
         </div>
