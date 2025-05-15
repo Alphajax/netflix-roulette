@@ -17,7 +17,6 @@ export const Dialog = ({ show, title, children, onClose }: DialogProps) => {
         <FocusTrap
           focusTrapOptions={{
             fallbackFocus: () => document.body,
-            onDeactivate: onClose,
           }}
         >
           <div>
