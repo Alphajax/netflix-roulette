@@ -133,8 +133,6 @@ export const Select = ({
           <ul className={styles.dropdown} id="listbox-id" role="listbox">
             {options.map((option, index) => (
               <li
-                aria-name={option}
-                aria-role="option"
                 aria-selected={isSelected(option)}
                 key={option}
                 role="option"
@@ -152,6 +150,7 @@ export const Select = ({
                     }
                   }}
                   onClick={() => {
+                    console.log(option)
                     toggleSelection(option)
                   }}
                 >

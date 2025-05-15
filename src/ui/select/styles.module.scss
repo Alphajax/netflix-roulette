@@ -76,10 +76,12 @@
     font-size: 16px;
     line-height: 100%;
     letter-spacing: 0;
-    text-transform: uppercase;
     cursor: pointer;
     padding-bottom: 8px;
     color: var(--white);
+    height: 100%;
+    width: 100%;
+    text-align: left;
   }
 }
 
@@ -112,6 +114,3 @@
   accent-color: var(--red-accent);
 }
 
-.optionButton {
-
-}
