@@ -99,7 +99,6 @@ export const Select = ({
         break
     }
   }
-  console.log(focusedIndex)
 
   return (
     <>

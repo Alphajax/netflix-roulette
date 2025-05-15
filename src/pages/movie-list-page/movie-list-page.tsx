@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.scss'
 import { Button, Search } from '../../ui'
 import { MovieDetails, MovieTitle, SortControl } from '../../components'
 import clsx from 'clsx'
 import type { Movie } from '../../types'
-import { useRequest } from '../../hooks/use-request.ts'
-import type { ApiResponse } from './utils.ts'
-import { mapMovies } from './utils.ts'
+import { useGetMovies } from '../../hooks'
+
 
 const tabs = [
   'Drama',
@@ -22,27 +21,13 @@ export const MovieListPage = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortCriteria, setSortCriteria] = useState('release_date')
   const [activeGenre, setActiveGenre] = useState(tabs[0])
-  const [movieList, setMovieList] = useState<Movie[]>([])
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
 
-  const { run } = useRequest<ApiResponse>({
-    method: 'GET',
-    url: 'http://localhost:4000/movies',
-    onSuccess: (data) => {
-      setMovieList(mapMovies(data))
-    },
-    params: {
-      search: searchQuery,
-      searchBy: 'title',
-      sortBy: sortCriteria,
-      sortOrder: 'asc',
-      filter: [activeGenre],
-    },
+  const { data, isPending } = useGetMovies({
+    search: searchQuery,
+    sortBy: sortCriteria,
+    activeGenre,
   })
-
-  useEffect(() => {
-    void run()
-  }, [searchQuery, sortCriteria, activeGenre])
 
   return (
     <div className={styles.container}>
@@ -96,18 +81,19 @@ export const MovieListPage = () => {
           </nav>
         </div>
         <div className={styles.movieList}>
-          {movieList.map((movie) => (
-            <MovieTitle
-              genres={movie.genres}
-              imgURL={movie.imgURL}
-              key={movie.id}
-              name={movie.name}
-              year={movie.year}
-              onClick={() => {
-                setSelectedMovie(movie)
-              }}
-            />
-          ))}
+          {!isPending &&
+            data?.map((movie) => (
+              <MovieTitle
+                genres={movie.genres}
+                imgURL={movie.imgURL}
+                key={movie.id}
+                name={movie.name}
+                year={movie.year}
+                onClick={() => {
+                  setSelectedMovie(movie)
+                }}
+              />
+            ))}
         </div>
       </main>
     </div>
