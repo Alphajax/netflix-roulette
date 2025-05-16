@@ -44,7 +44,7 @@ export function useGetMovies(config: UseGetMoviesOptions) {
         searchBy: 'title',
         sortBy: config.sortBy,
         sortOrder: 'asc',
-        filter: [config.activeGenre],
+        filter: config.activeGenre,
       }),
     select: (data) => mapMovies(data),
   })
