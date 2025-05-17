@@ -1,10 +1,10 @@
-import { useState } from 'react'
 import styles from './styles.module.scss'
-import { Button, Search } from '../../ui'
-import { MovieDetails, MovieTitle, SortControl } from '../../components'
+import { Button, Dialog } from '../../ui'
 import clsx from 'clsx'
-import type { Movie } from '../../types'
+import { Link, Outlet, useSearchParams } from 'react-router-dom'
 import { useGetMovies } from '../../hooks'
+import { useCallback } from 'react'
+import { MovieTitle, SortControl } from '../../components'
 
 const tabs = [
   'Drama',
@@ -17,45 +17,42 @@ const tabs = [
   'Family',
 ]
 export const MovieListPage = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [sortCriteria, setSortCriteria] = useState('release_date')
-  const [activeGenre, setActiveGenre] = useState(tabs[0])
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const searchQuery = searchParams.get('query') ?? ''
+  const sortCriteria = searchParams.get('sortBy') ?? 'release_date'
+  const activeGenre = searchParams.get('genre') ?? tabs[0]
 
   const { data, isPending } = useGetMovies({
-    search: searchQuery,
-    sortBy: sortCriteria,
     activeGenre,
+    sortBy: sortCriteria,
+    search: searchQuery,
   })
+
+  const handleSetSearchParam = useCallback(
+    (name: string, value: string) => {
+      searchParams.set(name, value)
+      setSearchParams(searchParams)
+    },
+    [searchParams, setSearchParams],
+  )
+  if (isPending) {
+    return <Dialog show title="Loading" />
+  }
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.headerTop}>
-          <h1
-            className={styles.siteName}
-            onClick={() => {
-              setSelectedMovie(null)
-            }}
-          >
-            <span className={styles.widePartOfName}>netflix</span>
-            roulette
+          <h1 className={styles.siteName}>
+            <Link to="/">
+              <span className={styles.widePartOfName}>netflix</span>
+              roulette
+            </Link>
           </h1>
           <Button variant="secondary">+ Add Movie</Button>
         </div>
         <div className={styles.headerContent}>
-          {selectedMovie ? (
-            <MovieDetails {...selectedMovie} />
-          ) : (
-            <>
-              <h2 className={styles.contentHeader}>Find your movie</h2>
-              <Search
-                initialSearch={searchQuery}
-                placeholder="What do you want to watch?"
-                onSearch={setSearchQuery}
-              />
-            </>
-          )}
+          <Outlet />
         </div>
       </header>
       <main className={styles.mainContainer}>
@@ -73,7 +70,7 @@ export const MovieListPage = () => {
                     <button
                       tabIndex={0}
                       onClick={() => {
-                        setActiveGenre(tab)
+                        handleSetSearchParam('genre', tab)
                       }}
                     >
                       {tab}
@@ -82,23 +79,25 @@ export const MovieListPage = () => {
                 ))}
               </ul>
             </div>
-            <SortControl value={sortCriteria} onChange={setSortCriteria} />
+            <SortControl
+              value={sortCriteria}
+              onChange={(sortBy: string) => {
+                handleSetSearchParam('sortBy', sortBy)
+              }}
+            />
           </nav>
         </div>
         <div className={styles.movieList}>
-          {!isPending &&
-            data?.map((movie) => (
-              <MovieTitle
-                genres={movie.genres}
-                imgURL={movie.imgURL}
-                key={movie.id}
-                name={movie.name}
-                year={movie.year}
-                onClick={() => {
-                  setSelectedMovie(movie)
-                }}
-              />
-            ))}
+          {data?.map((movie) => (
+            <MovieTitle
+              genres={movie.genres}
+              id={movie.id}
+              imgURL={movie.imgURL}
+              key={movie.id}
+              name={movie.name}
+              year={movie.year}
+            />
+          ))}
         </div>
       </main>
     </div>

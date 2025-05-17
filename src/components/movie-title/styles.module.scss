@@ -11,6 +11,10 @@
   color: var(--white);
 }
 
+a {
+  text-decoration: none;
+}
+
 .modal {
   height: 100px;
   width: 80%;
@@ -40,6 +44,10 @@
   justify-content: space-between;
   flex-direction: column;
   padding: 8px;
+}
+.posterContainer {
+  height: 483px;
+  background: radial-gradient(circle at center, var(--red-accent), var(--medium-gray));
 }
 
 .image {
