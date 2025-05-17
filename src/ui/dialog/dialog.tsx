@@ -6,7 +6,7 @@ import type { JSX, PropsWithChildren } from 'react'
 type DialogProps = PropsWithChildren<{
   show: boolean
   title: string | JSX.Element
-  onClose: () => void
+  onClose?: () => void
 }>
 
 export const Dialog = ({ show, title, children, onClose }: DialogProps) => {

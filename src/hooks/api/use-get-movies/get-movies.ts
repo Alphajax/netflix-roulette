@@ -1,4 +1,4 @@
-import axiosClient from '../../axiosClient.ts'
+import axiosClient from '../axiosClient.ts'
 import type { ApiResponse, UseGetMoviesOptions } from './use-get-movies.ts'
 
 interface GetMoviesOptions extends Omit<UseGetMoviesOptions, 'activeGenre'> {
