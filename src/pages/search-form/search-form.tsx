@@ -1,6 +1,6 @@
 import styles from './styles.module.scss'
 import { Search } from '../../ui'
-import { useSearchParams } from 'react-router-dom'
+import { Outlet, useSearchParams } from 'react-router-dom'
 import { useCallback } from 'react'
 
 export const SearchForm = () => {
@@ -22,6 +22,7 @@ export const SearchForm = () => {
         placeholder="What do you want to watch?"
         onSearch={handleSearch}
       />
+      <Outlet />
     </>
   )
 }

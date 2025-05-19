@@ -49,7 +49,9 @@ export const MovieListPage = () => {
               roulette
             </Link>
           </h1>
-          <Button variant="secondary">+ Add Movie</Button>
+          <Link to="/new">
+            <Button variant="secondary">+ Add Movie</Button>
+          </Link>
         </div>
         <div className={styles.headerContent}>
           <Outlet />
