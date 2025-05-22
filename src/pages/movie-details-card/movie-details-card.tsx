@@ -7,14 +7,7 @@ export const MovieDetailsCard = () => {
 
   return (
     <MovieDetails
-      description={data.description}
-      duration={data.duration}
-      genres={data.genres}
-      id={data.id}
-      imgURL={data.imgURL}
-      name={data.name}
-      rating={data.rating}
-      year={data.year}
+      {...data}
     />
   )
 }

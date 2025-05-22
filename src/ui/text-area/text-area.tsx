@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import styles from './styles.module.scss'
 import type { DetailedHTMLProps, TextareaHTMLAttributes } from 'react'
 import { useId } from 'react'
+import { FieldError } from 'react-hook-form'
 
 interface TextAreaProps
   extends Omit<
@@ -11,12 +12,14 @@ interface TextAreaProps
   label?: string
   inputClassName?: string
   containerClassName?: string
+  error?: FieldError
 }
 
 export const TextArea = ({
   label,
   inputClassName,
   containerClassName,
+  error,
   ...props
 }: TextAreaProps) => {
   const id = useId()
@@ -26,6 +29,7 @@ export const TextArea = ({
         {label}
       </label>
       <textarea className={clsx(styles.textarea, inputClassName)} id={id} {...props} />
+      {error && <p className={styles.error}>{error.message}</p>}
     </div>
   )
 }

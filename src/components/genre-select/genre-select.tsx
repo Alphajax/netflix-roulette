@@ -2,14 +2,16 @@ import type { SelectOptions } from '../../ui'
 import { Select } from '../../ui'
 import { useId } from 'react'
 import styles from './styles.module.scss'
+import type { FieldError } from 'react-hook-form'
 
 export interface GenreSelectProps {
   options: SelectOptions
-  selected: string[]
-  onSelect: (name: string[]) => void
+  value: string[]
+  onChange: (name: string[]) => void
+  error?: FieldError
 }
 
-export const GenreSelect = ({ options, onSelect, selected }: GenreSelectProps) => {
+export const GenreSelect = ({ options, onChange, value, error }: GenreSelectProps) => {
   const id = useId()
   return (
     <div className={styles.container}>
@@ -19,12 +21,13 @@ export const GenreSelect = ({ options, onSelect, selected }: GenreSelectProps) =
       <Select
         multiSelect
         id={id}
-        initialSelectedOptions={selected}
+        initialSelectedOptions={value}
         name="genres"
         options={options}
         placeholder="Select Genre"
-        onSelect={onSelect}
+        onSelect={onChange}
       />
+      {error && <p>{error.message}</p>}
     </div>
   )
 }

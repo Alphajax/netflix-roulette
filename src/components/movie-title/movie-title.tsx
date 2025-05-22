@@ -4,17 +4,20 @@ import { useState } from 'react'
 import { MoreOutlined } from '@ant-design/icons'
 import { Button, Dialog } from '../../ui'
 import { Link, useSearchParams } from 'react-router-dom'
+import type { Movie } from '../../types'
 
-interface MovieTitleProps {
-  imgURL: string
-  name: string
-  year: string
-  genres: string[]
+interface MovieTitleProps extends Movie {
   onClick?: MouseEventHandler
-  id: string
 }
 
-export const MovieTitle = ({ id, imgURL, name, year, genres, onClick }: MovieTitleProps) => {
+export const MovieTitle = ({
+  id,
+  poster_path,
+  title,
+  release_date,
+  genres,
+  onClick,
+}: MovieTitleProps) => {
   const [isOpened, setIsOpened] = useState(false)
 
   const handleOpenModal = () => {
@@ -33,12 +36,12 @@ export const MovieTitle = ({ id, imgURL, name, year, genres, onClick }: MovieTit
           <MoreOutlined />
         </button>
         <div className={styles.posterContainer}>
-          <img alt={name} className={styles.image} src={imgURL} />
+          <img alt="" className={styles.image} src={poster_path} />
         </div>
         <div className={styles.footer}>
           <div className={styles.firstLine}>
-            <p className={styles.name}>{name}</p>
-            <p className={styles.year}>{year}</p>
+            <p className={styles.name}>{title}</p>
+            <p className={styles.year}>{release_date}</p>
           </div>
           <div className={styles.secondLine}>
             <span>{genres.join(', ')}</span>

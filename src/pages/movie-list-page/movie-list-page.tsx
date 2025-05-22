@@ -90,16 +90,7 @@ export const MovieListPage = () => {
           </nav>
         </div>
         <div className={styles.movieList}>
-          {data?.map((movie) => (
-            <MovieTitle
-              genres={movie.genres}
-              id={movie.id}
-              imgURL={movie.imgURL}
-              key={movie.id}
-              name={movie.name}
-              year={movie.year}
-            />
-          ))}
+          {data?.map((movie) => <MovieTitle key={movie.id} {...movie} />)}
         </div>
       </main>
     </div>
