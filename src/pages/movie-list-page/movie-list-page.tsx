@@ -49,7 +49,9 @@ export const MovieListPage = () => {
               roulette
             </Link>
           </h1>
-          <Button variant="secondary">+ Add Movie</Button>
+          <Link to="/new">
+            <Button variant="secondary">+ Add Movie</Button>
+          </Link>
         </div>
         <div className={styles.headerContent}>
           <Outlet />
@@ -88,16 +90,7 @@ export const MovieListPage = () => {
           </nav>
         </div>
         <div className={styles.movieList}>
-          {data?.map((movie) => (
-            <MovieTitle
-              genres={movie.genres}
-              id={movie.id}
-              imgURL={movie.imgURL}
-              key={movie.id}
-              name={movie.name}
-              year={movie.year}
-            />
-          ))}
+          {data?.map((movie) => <MovieTitle key={movie.id} {...movie} />)}
         </div>
       </main>
     </div>

@@ -1,10 +1,10 @@
 export const genres = [
-  'фантастика',
-  'боевик',
-  'криминал',
-  'документальный',
-  'ужасы',
-  'комедия',
-  'триллер',
-  'драма',
+  'Drama',
+  'Romance',
+  'Fantasy',
+  'Adventure',
+  'Science Fiction',
+  'Action',
+  'Comedy',
+  'Family',
 ]

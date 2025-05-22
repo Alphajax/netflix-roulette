@@ -7,7 +7,7 @@ const mockProps = {
   imgURL:
     'https://avatars.mds.yandex.net/get-kinopoisk-image/1599028/4b27e219-a8a5-4d85-9874-57d6016e0837/600x900',
   name: 'Зеленая книга',
-  year: '2018',
+  date: '2018',
   rating: '8.5',
   duration: '2ч 10м',
   genres: ['биография', 'комедия', 'драма'],
@@ -32,7 +32,7 @@ describe('MovieDetails component', () => {
     const genres = screen.getByText(mockProps.genres.join(', '))
     expect(genres).toBeInTheDocument()
 
-    const yearAndDuration = screen.getByText(mockProps.year.toString())
+    const yearAndDuration = screen.getByText(mockProps.date.toString())
     expect(yearAndDuration).toBeInTheDocument()
     expect(screen.getByText(mockProps.duration)).toBeInTheDocument()
 

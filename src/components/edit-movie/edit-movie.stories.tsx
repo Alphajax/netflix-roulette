@@ -23,7 +23,7 @@ export const AddMovieComponent: Story = {
         'https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/ade65029-952f-488d-87b2-20c676970151/300x450',
       name: 'Терминатор 2: Судный день',
       genres: ['фантастика', 'боевик', 'триллер'],
-      year: '1991',
+      date: '1991',
       rating: '8.4',
       duration: '2ч 17м',
       description:

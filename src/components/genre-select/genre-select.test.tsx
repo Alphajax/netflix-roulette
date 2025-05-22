@@ -10,7 +10,7 @@ describe('GenreSelect', () => {
   test('selected genre is highlighted', async () => {
     const user = userEvent.setup()
 
-    render(<GenreSelect options={options} selected={initialSelectedOptions} onSelect={vi.fn()} />)
+    render(<GenreSelect options={options} value={initialSelectedOptions} onChange={vi.fn()} />)
 
     await user.click(screen.getByTestId('select-option-genres'))
     expect(screen.getByTestId('select-option-Comedy')).toBeChecked()
@@ -20,7 +20,7 @@ describe('GenreSelect', () => {
     const user = userEvent.setup()
 
     const onSelect = vi.fn()
-    render(<GenreSelect options={options} selected={initialSelectedOptions} onSelect={onSelect} />)
+    render(<GenreSelect options={options} value={initialSelectedOptions} onChange={onSelect} />)
     await user.click(screen.getByTestId(`select-option-genres`))
     await user.click(screen.getByTestId('select-option-Drama'))
     expect(onSelect).toHaveBeenCalledTimes(1)
