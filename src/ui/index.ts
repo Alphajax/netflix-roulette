@@ -1,3 +1,6 @@
 export * from './button'
 export * from './search'
 export * from './select'
+export * from './dialog'
+export * from './input'
+export * from './text-area'

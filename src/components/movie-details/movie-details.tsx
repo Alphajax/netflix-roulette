@@ -1,14 +1,7 @@
 import styles from './styles.module.scss'
+import type { Movie } from '../../types'
 
-interface MovieDetailsProps {
-  imgURL: string
-  name: string
-  genres: string[]
-  year: number
-  rating: number
-  duration: string
-  description: string
-}
+type MovieDetailsProps = Movie
 
 export const MovieDetails = ({
   imgURL,

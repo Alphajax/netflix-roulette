@@ -8,6 +8,7 @@ type ButtonProps = PropsWithChildren<{
   onClick?: MouseEventHandler<HTMLButtonElement>
   variant?: ButtonVariant
   type?: HTMLButtonElement['type']
+  className?: string
 }>
 
 export const Button = ({
@@ -15,8 +16,9 @@ export const Button = ({
   children,
   variant = 'primary',
   type = 'button',
+  className,
 }: ButtonProps) => (
-  <button className={clsx(styles.button, styles[variant])} type={type} onClick={onClick}>
+  <button className={clsx(styles.button, styles[variant], className)} type={type} onClick={onClick}>
     {children}
   </button>
 )

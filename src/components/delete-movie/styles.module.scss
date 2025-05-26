@@ -1,0 +1,16 @@
+.content {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  gap: 32px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: end;
+}
+
+.confirm {
+  width: 40%;
+}

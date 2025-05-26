@@ -1,0 +1,50 @@
+.container {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 10vh;
+  min-width: 20vw;
+  border: 1px solid red;
+  background-color: #555555;
+  border-radius: 4px;
+  z-index: 1000;
+  padding: 36px;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.closeButton {
+  all: unset;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.closeIcon {
+  font-size: 24px;
+  display: inline-block;
+  transition: transform 1s ease;
+  color: #232323;
+}
+
+.title {
+  font-family: Montserrat, sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}

@@ -2,8 +2,8 @@ import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 
 import SelectIcon from '../../assets/select-icon.svg'
-
 import styles from './styles.module.scss'
+import { shortenString } from '../../utils'
 
 export type SelectOption = string
 export type SelectOptions = SelectOption[]
@@ -11,10 +11,11 @@ export type SelectOptions = SelectOption[]
 interface SelectProps {
   options: SelectOptions
   name: string
-  onSelect: (name: string) => void
+  onSelect: (name: string[]) => void
   initialSelectedOptions: string[]
   multiSelect: boolean
   placeholder?: string
+  id?: string
 }
 
 export const Select = ({
@@ -24,9 +25,11 @@ export const Select = ({
   initialSelectedOptions,
   onSelect,
   placeholder,
+  id,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<SelectOption[]>([...initialSelectedOptions])
+  const [focusedIndex, setFocusedIndex] = useState<number>(0)
   const selectRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -44,84 +47,122 @@ export const Select = ({
   }, [])
 
   const toggleSelection = (option: SelectOption) => {
-    onSelect(option)
     if (multiSelect) {
       setSelected((prevSelected) => {
-        if (prevSelected.includes(option)) {
-          return prevSelected.filter((selectedOption) => selectedOption !== option)
-        } else {
-          return [...prevSelected, option]
-        }
+        const exists = prevSelected.includes(option)
+        const newValue = exists
+          ? prevSelected.filter((o) => o !== option)
+          : [...prevSelected, option]
+        onSelect(newValue)
+        return newValue
       })
     } else {
       setSelected([option])
+      onSelect([option])
+      setIsOpen(false)
     }
   }
 
   const isSelected = (option: SelectOption) => selected.includes(option)
 
+  const visiblePlaceholder =
+    (selected.length ? shortenString(selected.join(', '), 30) : null) ?? placeholder ?? name
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        setIsOpen(true)
+        setFocusedIndex((prev) => (prev + 1) % options.length)
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        setIsOpen(true)
+        setFocusedIndex((prev) => (prev - 1 + options.length) % options.length)
+        break
+      case 'Enter':
+      case ' ':
+        e.preventDefault()
+        if (isOpen) {
+          toggleSelection(options[focusedIndex])
+        } else {
+          setIsOpen(true)
+        }
+        break
+      case 'Escape':
+        e.preventDefault()
+        setIsOpen(false)
+        break
+      case 'Tab':
+        setIsOpen(false)
+        break
+    }
+  }
+
   return (
-    <div className={styles.container} ref={selectRef}>
-      <select
-        aria-label={name}
-        className={styles.nativeSelect}
-        id={name}
-        multiple={multiSelect}
-        name={name}
-        value={multiSelect ? selected : selected[0]}
-        onChange={(e) => {
-          toggleSelection(e.target.value)
-        }}
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-
-      <button
+    <>
+      <div
+        aria-activedescendant={`option-${focusedIndex.toString()}`}
         aria-expanded={isOpen}
-        aria-hidden="true"
-        className={styles.select}
-        data-testid={`select-option-${name}`}
-        onClick={() => {
-          setIsOpen(!isOpen)
-        }}
+        aria-haspopup="listbox"
+        aria-owns="listbox-id"
+        className={styles.container}
+        id={id}
+        ref={selectRef}
+        role="combobox"
       >
-        {placeholder ?? name}
-        <img
-          alt="arrow-icon"
-          className={clsx(styles.icon, { [styles.closedIcon]: !isOpen })}
-          src={SelectIcon}
-        />
-      </button>
+        <div
+          className={styles.select}
+          data-testid={`select-option-${name}`}
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          onClick={() => {
+            setIsOpen(!isOpen)
+          }}
+        >
+          {visiblePlaceholder}
+          <img
+            alt="arrow-icon"
+            className={clsx(styles.icon, { [styles.closedIcon]: !isOpen })}
+            src={SelectIcon}
+          />
+        </div>
 
-      {isOpen && (
-        <div aria-hidden="true" className={styles.dropdown}>
-          {options.map((option) => (
-            <button
-              className={styles.option}
-              key={option}
-              onClick={() => {
-                toggleSelection(option)
-              }}
-            >
-              <input
-                aria-hidden="true"
-                checked={isSelected(option)}
-                className={styles.checkbox}
-                data-testid={`select-option-${option}`}
-                type="checkbox"
-                onChange={() => {
+        {isOpen && (
+          <ul className={styles.dropdown} id="listbox-id" role="listbox">
+            {options.map((option, index) => (
+              <li
+                aria-name={option}
+                aria-role="option"
+                aria-selected={isSelected(option)}
+                key={option}
+                role="option"
+                tabIndex={-1}
+                className={clsx(styles.option, {
+                  [styles.focused]: focusedIndex === index,
+                })}
+                ref={(el) => {
+                  if (focusedIndex === index && el) {
+                    el.focus()
+                  }
+                }}
+                onClick={() => {
                   toggleSelection(option)
                 }}
-              />
-              {option}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+              >
+                <input
+                  readOnly
+                  checked={isSelected(option)}
+                  className={styles.checkbox}
+                  data-testid={`select-option-${option}`}
+                  type="checkbox"
+                />
+                {option}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   )
 }
