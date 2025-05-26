@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { AddMovieForm, MovieDetailsCard, MovieListPage, SearchForm } from './pages'
-import { getMovieLoader } from './hooks'
+import { getMovieLoader } from './pages'
 
 const router = createBrowserRouter([
   {

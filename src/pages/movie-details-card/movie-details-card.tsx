@@ -5,9 +5,5 @@ import { MovieDetails } from '../../components'
 export const MovieDetailsCard = () => {
   const data = useLoaderData<Movie>()
 
-  return (
-    <MovieDetails
-      {...data}
-    />
-  )
+  return <MovieDetails {...data} />
 }

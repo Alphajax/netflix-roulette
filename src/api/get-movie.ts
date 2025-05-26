@@ -1,5 +1,5 @@
-import axiosClient from '../axiosClient.ts'
-import type { Movie } from '../../../types'
+import axiosClient from './axiosClient.ts'
+import type { Movie } from '../types'
 
 type ApiResponse = Movie
 

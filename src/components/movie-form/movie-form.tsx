@@ -1,35 +1,27 @@
 import styles from './styles.module.scss'
 import { Button, Input, TextArea } from '../../ui'
 import { GenreSelect } from '../genre-select'
-import type { Movie } from '../../types'
 import { genres } from '../../utils'
 
-import type { SubmitHandler, UseFormReturn } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import type { MovieFormData } from '../../pages'
 
 interface MovieFormProps {
-  initialMovieInfo?: Movie
   onSubmit: (formData: MovieFormData) => void
-  form: UseFormReturn<MovieFormData>
 }
 
-export const MovieForm = ({
-  onSubmit,
-  form: {
+export const MovieForm = ({ onSubmit }: MovieFormProps) => {
+  const {
     handleSubmit,
     formState: { errors },
     register,
     control,
-  },
-}: MovieFormProps) => {
-  const handleSubmitForm: SubmitHandler<MovieFormData> = (data) => {
-    onSubmit(data)
-  }
+  } = useFormContext<MovieFormData>()
 
   return (
     <div className={styles.container}>
-      <form noValidate onSubmit={handleSubmit(handleSubmitForm)}>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.formInputs}>
           <Input error={errors.title} label="Title" placeholder="title" {...register('title')} />
           <Input
@@ -55,7 +47,7 @@ export const MovieForm = ({
             name="genres"
             render={({ field, fieldState }) => (
               <GenreSelect
-                error={fieldState.error}
+                error={fieldState.error?.message}
                 options={genres}
                 value={field.value}
                 onChange={field.onChange}

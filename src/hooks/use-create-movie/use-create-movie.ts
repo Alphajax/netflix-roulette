@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import { postMovie } from './post-movie.ts'
-import type { MovieFormData } from '../../../pages'
+import { postMovie } from '../../api'
+import type { MovieFormData } from '../../pages'
 
 type CreateMovieProps = Omit<MovieFormData, 'id'>
 

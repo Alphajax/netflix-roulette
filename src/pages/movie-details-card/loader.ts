@@ -1,4 +1,4 @@
-import { getMovie } from './get-movie.ts'
+import { getMovie } from '../../api'
 
 export const getMovieLoader = async ({ params }: { params: { movieId?: string } }) => {
   if (!params.movieId) {

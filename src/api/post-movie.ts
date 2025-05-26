@@ -1,6 +1,6 @@
-import axiosClient from '../axiosClient.ts'
-import type { Movie } from '../../../types'
-import type { MovieFormData } from '../../../pages'
+import axiosClient from './axiosClient.ts'
+import type { Movie } from '../types'
+import type { MovieFormData } from '../pages'
 
 type ApiResponse = Movie
 export const postMovie = async (params: MovieFormData) => {

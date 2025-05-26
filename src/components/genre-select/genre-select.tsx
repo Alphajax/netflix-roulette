@@ -2,13 +2,12 @@ import type { SelectOptions } from '../../ui'
 import { Select } from '../../ui'
 import { useId } from 'react'
 import styles from './styles.module.scss'
-import type { FieldError } from 'react-hook-form'
 
 export interface GenreSelectProps {
   options: SelectOptions
   value: string[]
   onChange: (name: string[]) => void
-  error?: FieldError
+  error?: string;
 }
 
 export const GenreSelect = ({ options, onChange, value, error }: GenreSelectProps) => {
@@ -27,7 +26,7 @@ export const GenreSelect = ({ options, onChange, value, error }: GenreSelectProp
         placeholder="Select Genre"
         onSelect={onChange}
       />
-      {error && <p>{error.message}</p>}
+      {error && <p>{error}</p>}
     </div>
   )
 }

@@ -1,6 +1,6 @@
-import axiosClient from '../axiosClient.ts'
-import type { UseGetMoviesOptions } from './use-get-movies.ts'
-import type { Movie } from '../../../types'
+import axiosClient from './axiosClient.ts'
+import type { UseGetMoviesOptions } from '../hooks/use-get-movies/use-get-movies.ts'
+import type { Movie } from '../types'
 
 export interface ApiResponse {
   data: Movie[]
