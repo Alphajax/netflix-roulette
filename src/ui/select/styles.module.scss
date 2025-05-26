@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  width: 400px;
+  width: 300px;
 }
 
 .select {
@@ -47,6 +47,9 @@
   max-height: 200px;
   overflow-y: auto;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
 }
 
 .option {
@@ -65,13 +68,31 @@
   opacity: 0.95;
   line-height: 28px;
   font-size: 18px;
+  button {
+    border: none;
+    background: none;
+    font-family: Montserrat, serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0;
+    cursor: pointer;
+    padding-bottom: 8px;
+    color: var(--white);
+    height: 100%;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+.option.selected {
+  background: lightgrey;
+  opacity: 1;
 }
 
 .focused {
   background-color: var(--dark-gray);
   margin: 2px;
-  width: calc(100% - 4px);
-  outline: 1px solid var(--red-accent);
 }
 
 .option:hover {
@@ -92,3 +113,4 @@
 .checkbox:checked {
   accent-color: var(--red-accent);
 }
+

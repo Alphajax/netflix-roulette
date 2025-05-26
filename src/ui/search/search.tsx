@@ -9,9 +9,10 @@ interface SearchProps {
   label?: string
   initialSearch: string
   onSearch: (search: string) => void
+  placeholder?: string
 }
 
-export const Search = ({ label, initialSearch, onSearch }: SearchProps) => {
+export const Search = ({ label, initialSearch, onSearch, placeholder }: SearchProps) => {
   const input = useRef<HTMLInputElement>(null)
 
   const handleSubmitForm: FormEventHandler<HTMLFormElement> = (e) => {
@@ -20,13 +21,16 @@ export const Search = ({ label, initialSearch, onSearch }: SearchProps) => {
   }
 
   return (
-    <div>
-      <form className={styles.container} onSubmit={handleSubmitForm}>
-        <Input defaultValue={initialSearch} label={label} ref={input} />
-        <div className={styles.buttonContainer}>
-          <Button type="submit">Search</Button>
-        </div>
-      </form>
-    </div>
+    <form className={styles.container} onSubmit={handleSubmitForm}>
+      <Input
+        defaultValue={initialSearch}
+        label={label}
+        placeholder={placeholder ?? ''}
+        ref={input}
+      />
+      <div className={styles.buttonContainer}>
+        <Button type="submit">Search</Button>
+      </div>
+    </form>
   )
 }

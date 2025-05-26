@@ -95,6 +95,7 @@ export const Select = ({
         break
       case 'Tab':
         setIsOpen(false)
+        setFocusedIndex((prev) => (prev + 1) % options.length)
         break
     }
   }
@@ -132,32 +133,39 @@ export const Select = ({
           <ul className={styles.dropdown} id="listbox-id" role="listbox">
             {options.map((option, index) => (
               <li
-                aria-name={option}
-                aria-role="option"
                 aria-selected={isSelected(option)}
                 key={option}
                 role="option"
                 tabIndex={-1}
                 className={clsx(styles.option, {
                   [styles.focused]: focusedIndex === index,
+                  [styles.selected]: isSelected(option),
                 })}
-                ref={(el) => {
-                  if (focusedIndex === index && el) {
-                    el.focus()
-                  }
-                }}
-                onClick={() => {
-                  toggleSelection(option)
-                }}
               >
-                <input
-                  readOnly
-                  checked={isSelected(option)}
-                  className={styles.checkbox}
-                  data-testid={`select-option-${option}`}
-                  type="checkbox"
-                />
-                {option}
+                <button
+                  className={styles.optionButton}
+                  ref={(el) => {
+                    if (focusedIndex === index && el) {
+                      el.focus()
+                    }
+                  }}
+                  onClick={() => {
+                    console.log(option)
+                    toggleSelection(option)
+                  }}
+                >
+                  {multiSelect && (
+                    <input
+                      readOnly
+                      checked={isSelected(option)}
+                      className={styles.checkbox}
+                      data-testid={`select-option-${option}`}
+                      type="checkbox"
+                    />
+                  )}
+
+                  {option}
+                </button>
               </li>
             ))}
           </ul>
