@@ -5,11 +5,12 @@ import styles from './styles.module.scss'
 
 export interface GenreSelectProps {
   options: SelectOptions
-  selected: string[]
-  onSelect: (name: string[]) => void
+  value: string[]
+  onChange: (name: string[]) => void
+  error?: string;
 }
 
-export const GenreSelect = ({ options, onSelect, selected }: GenreSelectProps) => {
+export const GenreSelect = ({ options, onChange, value, error }: GenreSelectProps) => {
   const id = useId()
   return (
     <div className={styles.container}>
@@ -19,12 +20,13 @@ export const GenreSelect = ({ options, onSelect, selected }: GenreSelectProps) =
       <Select
         multiSelect
         id={id}
-        initialSelectedOptions={selected}
+        initialSelectedOptions={value}
         name="genres"
         options={options}
         placeholder="Select Genre"
-        onSelect={onSelect}
+        onSelect={onChange}
       />
+      {error && <p>{error}</p>}
     </div>
   )
 }

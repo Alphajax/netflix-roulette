@@ -1,7 +1,7 @@
-import axiosClient from '../axiosClient.ts'
-import type { ApiMovie } from '../shared-responses'
+import axiosClient from './axiosClient.ts'
+import type { Movie } from '../types'
 
-type ApiResponse = ApiMovie
+type ApiResponse = Movie
 
 export const getMovie = async (id: string) => {
   const response = await axiosClient.get<ApiResponse>('/movies/' + id)

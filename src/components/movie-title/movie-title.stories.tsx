@@ -14,7 +14,7 @@ export const Primary: Story = {
     imgURL:
       'https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/430042eb-ee69-4818-aed0-a312400a26bf/600x900',
     name: 'Интерстеллар',
-    year: '2014',
+    date: '2014',
     genres: ['фантастика', 'драма', 'приключения'],
   },
 }

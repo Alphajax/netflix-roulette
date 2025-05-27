@@ -79,10 +79,11 @@ export default tseslint.config(
       'react/require-default-props': 'off', // Not required with TypeScript
       '@typescript-eslint/prefer-optional-chain': 'error', // Prefer `?.` over `if checks`
       '@typescript-eslint/prefer-nullish-coalescing': 'error', // Prefer `??` over `||` for null/undefined checks
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-unsafe-call": "off",
-      "@typescript-eslint/no-unsafe-argument": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off"
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
     },
   },
 )

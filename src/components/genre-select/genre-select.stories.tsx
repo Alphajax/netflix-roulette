@@ -13,7 +13,7 @@ type Story = StoryObj<typeof GenreSelect>
 
 export const Primary: Story = {
   args: {
-    selected: [],
+    value: [],
     options: genres,
   },
   render: function Render() {
@@ -23,6 +23,6 @@ export const Primary: Story = {
       updateArgs({ selected: option })
     }
 
-    return <GenreSelect options={options} selected={selected} onSelect={onSelect} />
+    return <GenreSelect options={options} value={selected} onChange={onSelect} />
   },
 }

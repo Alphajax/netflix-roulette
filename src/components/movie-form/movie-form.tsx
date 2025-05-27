@@ -1,73 +1,72 @@
 import styles from './styles.module.scss'
-import type { FormEventHandler } from 'react'
-import { useCallback } from 'react'
-import { useState } from 'react'
 import { Button, Input, TextArea } from '../../ui'
 import { GenreSelect } from '../genre-select'
-import type { Movie } from '../../types'
-import { convertFormDataToMovie } from './utils.ts'
 import { genres } from '../../utils'
 
+import { useFormContext } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
+import type { MovieFormData } from '../../pages'
+
 interface MovieFormProps {
-  initialMovieInfo?: Movie
-  onSubmit: (formData: Movie) => void
+  onSubmit: (formData: MovieFormData) => void
 }
 
-export const MovieForm = ({ initialMovieInfo, onSubmit }: MovieFormProps) => {
-  const [selectedGenres, setSelectedGenres] = useState(initialMovieInfo?.genres ?? [])
-
-  const handleSubmitForm: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    formData.append('genres', selectedGenres.join(','))
-    const movie = Object.fromEntries(formData) as Record<string, string | undefined>
-    onSubmit(convertFormDataToMovie(movie, initialMovieInfo?.id))
-  }
-  const handleSelectGenres = useCallback((genres: string[]) => {
-    setSelectedGenres(genres)
-  }, [])
+export const MovieForm = ({ onSubmit }: MovieFormProps) => {
+  const {
+    handleSubmit,
+    formState: { errors },
+    register,
+    control,
+  } = useFormContext<MovieFormData>()
 
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmitForm}>
+      <form noValidate onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.formInputs}>
+          <Input error={errors.title} label="Title" placeholder="title" {...register('title')} />
           <Input
-            defaultValue={initialMovieInfo?.name}
-            label="Title"
-            name="name"
-            placeholder="title"
-          />
-          <Input
-            defaultValue={initialMovieInfo?.year}
+            error={errors.release_date}
             label="Select Date"
-            name="year"
             placeholder="Select Date"
+            {...register('release_date')}
           />
           <Input
-            defaultValue={initialMovieInfo?.imgURL}
+            error={errors.poster_path}
             label="Movie Url"
-            name="imgURL"
             placeholder="https://"
+            {...register('poster_path')}
           />
           <Input
-            defaultValue={initialMovieInfo?.rating}
+            error={errors.vote_average}
             label="Rating"
-            name="rating"
             placeholder="7.8"
+            {...register('vote_average')}
           />
-          <GenreSelect options={genres} selected={selectedGenres} onSelect={handleSelectGenres} />
+          <Controller
+            control={control}
+            name="genres"
+            render={({ field, fieldState }) => (
+              <GenreSelect
+                error={fieldState.error?.message}
+                options={genres}
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
           <Input
-            defaultValue={initialMovieInfo?.duration}
+            error={errors.runtime}
             label="Runtime"
-            name="duration"
             placeholder="minutes"
+            type="number"
+            {...register('runtime')}
           />
           <TextArea
             containerClassName={styles.overview}
-            defaultValue={initialMovieInfo?.description}
+            error={errors.overview}
             label="Overview"
-            name="description"
             placeholder="Movie description"
+            {...register('overview')}
           />
           <Button className={styles.submit} type="submit">
             Submit

@@ -1,11 +1,11 @@
 import { Dialog } from '../../ui'
 import { MovieForm } from '../movie-form'
-import type { Movie } from '../../types'
+import type { MovieFormData } from '../../pages'
 
 interface AddMovieProps {
   show: boolean
   onClose: () => void
-  onSubmit: (movie: Movie) => void
+  onSubmit: (movie: MovieFormData) => void
 }
 
 export const AddMovie = ({ show, onClose, onSubmit }: AddMovieProps) => (

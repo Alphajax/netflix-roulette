@@ -18,7 +18,7 @@ export const EditMovie: Story = {
       imgURL:
         'https://avatars.mds.yandex.net/get-kinopoisk-image/4716873/85b585ea-410f-4d1c-aaa5-8d242756c2a4/300x450',
       name: 'Бойцовский клуб',
-      year: '1999',
+      date: '1999',
       rating: '8.7',
       duration: '2ч 19м',
       genres: ['триллер', 'криминал', 'драма'],

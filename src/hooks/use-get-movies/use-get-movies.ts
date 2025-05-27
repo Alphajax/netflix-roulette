@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
-import { getMovies } from './get-movies.ts'
-import type { Movie } from '../../../types'
-import type { ApiMovie } from '../shared-responses'
-import { mapMovie } from '../shared-responses'
+import type { ApiResponse } from '../../api'
+import { getMovies } from '../../api'
+import type { Movie } from '../../types'
 
 export interface UseGetMoviesOptions {
   search: string
@@ -10,12 +9,7 @@ export interface UseGetMoviesOptions {
   activeGenre: string
 }
 
-export interface ApiResponse {
-  data: ApiMovie[]
-}
-
-const mapMovies = (response: ApiResponse): Movie[] =>
-  response.data.map((item) => ({ ...mapMovie(item) }))
+const mapMovies = (response: ApiResponse): Movie[] => response.data
 
 export function useGetMovies(config: UseGetMoviesOptions) {
   return useQuery({
